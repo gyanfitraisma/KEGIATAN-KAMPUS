@@ -22,27 +22,27 @@
             </div>
         </div>
         <nav class="menu">
-            <a href="dashboard.html">
+            <a href="dashboard.php">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
             </a>
-            <a href="form-daftar.html">
+            <a href="form-daftar.php">
                 <i class="bi bi-pencil-square"></i>
                 Form Pendaftaran
             </a>
-            <a href="data-peserta.html">
+            <a href="data-peserta.php">
                 <i class="bi bi-people"></i>
                 Data Peserta
             </a>
-            <a href="edit-data.html">
+            <a href="edit-data.php">
                 <i class="bi bi-pencil"></i>
                 Edit Peserta
             </a>
-            <a href="kegiatan.html" class="active">
+            <a href="kegiatan.php" class="active">
                 <i class="bi bi-calendar-event"></i>
                 Data Kegiatan
             </a>
-            <a href="index.html">
+            <a href="index.php">
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
@@ -215,21 +215,21 @@
         </p>
     </footer>
     <!-- ================= JAVASCRIPT ================= -->
-    <script>
-        function updateJam() {
-            const sekarang = new Date();
-            document.getElementById("jam").innerHTML =
-                sekarang.toLocaleTimeString("id-ID");
-            document.getElementById("tanggal").innerHTML =
-                sekarang.toLocaleDateString("id-ID", {
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                });
-        }
-        setInterval(updateJam, 1000);
-        updateJam();
+ <script>
+    function updateJam(){
+        const sekarang = new Date();
+
+        document.getElementById("jam").innerHTML =
+            sekarang.toLocaleTimeString("id-ID");
+
+        document.getElementById("tanggal").innerHTML =
+            sekarang.toLocaleDateString("id-ID",{
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            });
+    }
+    setInterval(updateJam,1000);
+    updateJam();
     </script>
-</body>
-</html>

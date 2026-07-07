@@ -34,32 +34,32 @@
 
         <nav class="menu">
 
-            <a href="dashboard.html">
+            <a href="dashboard.php">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
             </a>
 
-            <a href="form-daftar.html" class="active">
+            <a href="form-daftar.php" class="active">
                 <i class="bi bi-pencil-square"></i>
                 Form Pendaftaran
             </a>
 
-            <a href="data-peserta.html">
+            <a href="data-peserta.php">
                 <i class="bi bi-people"></i>
                 Data Peserta
             </a>
 
-            <a href="edit-data.html">
+            <a href="edit-data.php">
                 <i class="bi bi-pencil"></i>
                 Edit Peserta
             </a>
 
-            <a href="kegiatan.html">
+            <a href="kegiatan.php">
                 <i class="bi bi-calendar-event"></i>
                 Data Kegiatan
             </a>
 
-            <a href="index.html">
+            <a href="index.php">
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
@@ -348,23 +348,20 @@
 
     <!-- Jam Otomatis -->
     <script>
-        function updateJam() {
-            const sekarang = new Date();
-            document.getElementById("jam").innerHTML =
-                sekarang.toLocaleTimeString("id-ID");
+    function updateJam(){
+        const sekarang = new Date();
 
-            document.getElementById("tanggal").innerHTML =
-                sekarang.toLocaleDateString("id-ID", {
+        document.getElementById("jam").innerHTML =
+            sekarang.toLocaleTimeString("id-ID");
 
-                    weekday: "long",
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric"
-                });
-        }
-        updateJam();
-        setInterval(updateJam, 1000);
+        document.getElementById("tanggal").innerHTML =
+            sekarang.toLocaleDateString("id-ID",{
+                weekday:"long",
+                day:"numeric",
+                month:"long",
+                year:"numeric"
+            });
+    }
+    setInterval(updateJam,1000);
+    updateJam();
     </script>
-</body>
-
-</html>

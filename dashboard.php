@@ -1,3 +1,4 @@
+<?php include 'koneksi.php'; ?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -12,7 +13,6 @@
     
 <body>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
 
         <div class="brand">
@@ -26,32 +26,32 @@
 
         <nav class="menu">
 
-            <a href="dashboard.html" class="active">
+            <a href="dashboard.php" class="active">
                 <i class="bi bi-speedometer2"></i>
                 Dashboard
             </a>
 
-            <a href="form-daftar.html">
+            <a href="form-daftar.php">
                 <i class="bi bi-pencil-square"></i>
                 Form Pendaftaran
             </a>
 
-            <a href="data-peserta.html">
+            <a href="data-peserta.php">
                 <i class="bi bi-people"></i>
                 Data Peserta
             </a>
 
-            <a href="edit-data.html">
+            <a href="edit-data.php">
                 <i class="bi bi-pencil"></i>
                 Edit Peserta
             </a>
 
-            <a href="kegiatan.html">
+            <a href="kegiatan.php">
                 <i class="bi bi-calendar-event"></i>
                 Data Kegiatan
             </a>
 
-            <a href="index.html">
+            <a href="index.php">
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
@@ -60,10 +60,8 @@
 
     </aside>
 
-    <!-- Content -->
     <main class="content">
 
-        <!-- Header -->
         <section class="topbar">
 
             <div>
@@ -81,12 +79,12 @@
 
             <div class="d-flex gap-2">
 
-                <a href="form-daftar.html" class="btn btn-primary">
+                <a href="form-daftar.php" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i>
                     Daftar Peserta
                 </a>
 
-                <a href="kegiatan.html" class="btn btn-outline-primary">
+                <a href="kegiatan.php" class="btn btn-outline-primary">
                     <i class="bi bi-calendar-event"></i>
                     Data Kegiatan
                 </a>
@@ -95,7 +93,6 @@
 
         </section>
 
-        <!-- ================= HERO DASHBOARD ================= -->
         <section class="hero-dashboard mb-4">
 
             <div class="row align-items-center">
@@ -134,7 +131,6 @@
 
         </section>
 
-        <!-- ================= Progress Peserta ================= -->
         <section class="card-box mb-4">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -164,10 +160,9 @@
             </div>
         </section>
 
-        <!-- ================= QUICK MENU ================= -->
         <section class="row g-3 mb-4">
             <div class="col-md-3">
-                <a href="form-daftar.html" class="quick-card text-decoration-none">
+                <a href="form-daftar.php" class="quick-card text-decoration-none">
                     <i class="bi bi-person-plus-fill"></i>
                     <h5>Tambah Peserta</h5>
                     <p>Daftarkan peserta baru</p>
@@ -175,7 +170,7 @@
             </div>
 
             <div class="col-md-3">
-                <a href="data-peserta.html" class="quick-card text-decoration-none">
+                <a href="data-peserta.php" class="quick-card text-decoration-none">
                     <i class="bi bi-people-fill"></i>
                     <h5>Data Peserta</h5>
                     <p>Lihat seluruh peserta</p>
@@ -183,7 +178,7 @@
             </div>
 
             <div class="col-md-3">
-                <a href="kegiatan.html" class="quick-card text-decoration-none">
+                <a href="kegiatan.php" class="quick-card text-decoration-none">
                     <i class="bi bi-calendar-event-fill"></i>
                     <h5>Kegiatan</h5>
                     <p>Kelola kegiatan kampus</p>
@@ -191,16 +186,13 @@
             </div>
 
             <div class="col-md-3">
-                <a href="edit-data.html" class="quick-card text-decoration-none">
+                <a href="edit-data.php" class="quick-card text-decoration-none">
                     <i class="bi bi-pencil-square"></i>
                     <h5>Edit Data</h5>
                     <p>Ubah data peserta</p>
                 </a>
             </div>
         </section>
-        <!-- ================= END HERO ================= -->
-
-        <!-- Statistik -->
         <section class="row g-4 mb-4">
 
             <div class="col-lg-3 col-md-6">
@@ -236,10 +228,8 @@
             </div>
         </section>
 
-        <!-- Isi -->
         <section class="row g-4">
 
-            <!-- Pengumuman -->
             <div class="col-lg-7">
 
                 <div class="card-box h-100">
@@ -269,7 +259,6 @@
 
             </div>
 
-            <!-- Aktivitas -->
             <div class="col-lg-5">
 
                 <div class="card-box h-100">
