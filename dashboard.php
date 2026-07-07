@@ -28,7 +28,7 @@
 
             <a href="dashboard.php" class="active">
                 <i class="bi bi-speedometer2"></i>
-                Dashboard
+            Dashboard
             </a>
 
             <a href="form-daftar.php">
