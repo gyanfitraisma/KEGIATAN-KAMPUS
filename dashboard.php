@@ -28,7 +28,7 @@
 
             <a href="dashboard.html" class="active">
                 <i class="bi bi-speedometer2"></i>
-                Dashboard
+            Dashboard
             </a>
 
             <a href="form-daftar.html">
