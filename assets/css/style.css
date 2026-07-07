@@ -1,0 +1,759 @@
+:root {
+  --primary: #1769aa;
+  --dark: #102033;
+  --green: #22a06b;
+  --light: #f6f8fb;
+  --line: #dbe3ee;
+  --text: #18212f;
+}
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--light);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+.sidebar {
+  position: fixed;
+  width: 270px;
+  min-height: 100vh;
+  padding: 28px 22px;
+  background: var(--dark);
+  color: #fff;
+}
+.brand {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.brand-logo {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: linear-gradient(135deg, var(--primary), var(--green));
+  font-weight: 800;
+}
+.brand h1 {
+  margin: 0;
+  font-size: 20px;
+}
+.brand p {
+  margin: 0;
+  color: #b7c7d8;
+  font-size: 13px;
+}
+.menu {
+  display: grid;
+  gap: 8px;
+}
+.menu a {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border-radius: 8px;
+  color: #dbe8f5;
+  text-decoration: none;
+  font-weight: 600;
+}
+.menu a:hover,
+.menu a.active {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+}
+.content {
+  margin-left: 270px;
+  padding: 30px;
+}
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.label {
+  color: var(--primary);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.card-box,
+.stat-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, .06);
+}
+.card-box {
+  padding: 24px;
+}
+.stat-card {
+  height: 100%;
+  padding: 22px;
+}
+.stat-card i {
+  color: var(--primary);
+  font-size: 32px;
+}
+.stat-card h3 {
+  margin: 14px 0 2px;
+  font-size: 34px;
+  font-weight: 800;
+}
+.stat-card p {
+  margin: 0;
+  color: #64748b;
+}
+.section-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.section-title h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+}
+.section-title span {
+  color: #64748b;
+  font-size: 14px;
+}
+.form-control,
+.form-select,
+.btn {
+  border-radius: 8px;
+}
+.table thead th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+@media (max-width: 900px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    min-height: auto;
+  }
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+  .topbar,
+  .section-title {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background:
+    linear-gradient(135deg, rgba(23, 105, 170, .12), transparent 35%),
+    linear-gradient(315deg, rgba(34, 160, 107, .12), transparent 35%),
+    #f6f8fb;
+}
+.auth-card {
+  width: min(100%, 430px);
+  padding: 32px;
+  border: 1px solid #dbe3ee;
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 22px 60px rgba(15, 23, 42, .12);
+}
+.auth-card-wide {
+  width: min(100%, 720px);
+}
+.auth-logo {
+  width: 58px;
+  height: 58px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #1769aa, #22a06b);
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+}
+.auth-card h1 {
+  margin: 0 0 6px;
+  font-size: 28px;
+  font-weight: 800;
+}
+.auth-link,
+.auth-bottom a {
+  color: #1769aa;
+  font-weight: 700;
+  text-decoration: none;
+}
+.auth-bottom {
+  margin: 22px 0 0;
+  text-align: center;
+  color: #64748b;
+}
+/* ========================= */
+/* TAMBAHAN AGAR LEBIH MODERN */
+/* ========================= */
+body {
+  background: #f4f7fb;
+}
+/* Efek Card */
+.card-box,
+.stat-card {
+  transition: all 0.3s ease;
+}
+.card-box:hover,
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0,0,0,.12);
+}
+/* Sidebar */
+.sidebar {
+  box-shadow: 5px 0 20px rgba(0,0,0,.15);
+}
+/* Menu */
+.menu a {
+  transition: all .3s ease;
+}
+.menu a:hover {
+  padding-left: 18px;
+}
+/* Tombol */
+.btn-primary {
+  background: linear-gradient(135deg,#1769aa,#22a06b);
+  border: none;
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(23,105,170,.3);
+}
+/* Judul Dashboard */
+.topbar h2 {
+  font-weight: 800;
+  color: #102033;
+}
+.topbar p {
+  margin-bottom: 0;
+}
+/* Table */
+.table tbody tr:hover {
+  background: #eef7ff;
+}
+/* Alert */
+.alert {
+  border-radius: 10px;
+  border: none;
+}
+/* Icon Statistik */
+.stat-card i {
+  display: inline-block;
+  padding: 12px;
+  border-radius: 12px;
+  background: rgba(23,105,170,.1);
+  margin-bottom: 10px;
+}
+/* Animasi */
+.card-box,
+.stat-card,
+.btn {
+  animation: fadeUp .6s ease;
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*=============================
+PROGRESS BAR MODERN
+==============================*/
+.progress-modern{
+    height:22px;
+    border-radius:20px;
+    overflow:hidden;
+    background:#e9ecef;
+}
+.progress-modern .progress-bar{
+    font-weight:600;
+    font-size:13px;
+}
+/*====================================
+CARD HOVER
+====================================*/
+.stat-card{
+    transition: all .35s ease;
+    cursor:pointer;
+}
+.stat-card:hover{
+    transform: translateY(-10px);
+    box-shadow:0 25px 45px rgba(0,0,0,.12);
+}
+.card-box{
+    transition:.35s;
+}
+.card-box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 35px rgba(0,0,0,.08);
+}
+/*====================================
+ICON ANIMATION
+====================================*/
+.stat-card i{
+    transition:.4s;
+}
+.stat-card:hover i{
+    transform:scale(1.25) rotate(8deg);
+}
+/*====================================
+BUTTON HOVER
+====================================*/
+.btn{
+    transition:.3s;
+}
+.btn:hover{
+    transform:translateY(-3px);
+}
+/*====================================
+TABLE
+====================================*/
+.table tbody tr{
+    transition:.25s;
+}
+.table tbody tr:hover{
+    background:#eef6ff;
+}
+/*====================================
+SMOOTH PAGE
+====================================*/
+body{
+    animation:fadePage .8s ease;
+}
+@keyframes fadePage{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/*======================================
+QUICK MENU
+======================================*/
+.quick-card{
+    display:block;
+    background:#ffffff;
+    border-radius:18px;
+    padding:25px;
+    text-align:center;
+    color:#222;
+    border:1px solid #e9ecef;
+    transition:.35s;
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+}
+.quick-card:hover{
+    transform:translateY(-8px);
+    color:#1769aa;
+    box-shadow:0 18px 35px rgba(23,105,170,.18);
+}
+.quick-card i{
+    font-size:42px;
+    color:#1769aa;
+    margin-bottom:15px;
+}
+.quick-card h5{
+    font-weight:700;
+    margin-bottom:8px;
+}
+.quick-card p{
+    color:#6c757d;
+    font-size:14px;
+    margin:0;
+}
+/*======================================
+HERO
+======================================*/
+.hero-dashboard{
+    background:linear-gradient(135deg,#1769aa,#22a06b);
+    color:white;
+    padding:35px;
+    border-radius:20px;
+    margin-bottom:25px;
+    box-shadow:0 15px 35px rgba(0,0,0,.12);
+}
+.hero-dashboard h2{
+    font-weight:800;
+}
+.hero-dashboard p{
+    margin-top:10px;
+    opacity:.95;
+}
+.hero-time{
+    background:rgba(255,255,255,.18);
+    padding:20px;
+    border-radius:15px;
+    text-align:center;
+}
+.hero-time h3{
+    font-size:34px;
+    font-weight:800
+}
+.hero-time span{
+    font-size:15px;
+}
+/*======================================
+FOOTER
+======================================*/
+.footer-dashboard{
+    margin-top:40px;
+    text-align:center;
+    color:#6c757d;
+    font-size:14px;
+    border-top:1px solid #dee2e6;
+    padding-top:20px;
+}
+/* ============================
+   HERO FORM PENDAFTARAN
+============================ */
+.hero-dashboard{
+    background: linear-gradient(135deg,#1769aa,#22a06b);
+    color:#fff;
+    border-radius:18px;
+    padding:35px;
+    margin-bottom:25px;
+    box-shadow:0 12px 30px rgba(0,0,0,.15);
+}
+.hero-dashboard h2{
+    font-weight:700;
+    margin-bottom:10px;
+}
+.hero-dashboard p{
+    opacity:.95;
+    margin-bottom:0;
+}
+.hero-time{
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(8px);
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+}
+.hero-time h3{
+    font-size:32px;
+    font-weight:700;
+    margin-bottom:5px;
+}
+.hero-time span{
+    font-size:15px;
+}
+/* ============================
+   CARD FORM
+============================ */
+.card-box{
+    transition:.35s;
+}
+.card-box:hover{
+    transform:translateY(-5px);
+    box-shadow:0 18px 35px rgba(0,0,0,.12);
+}
+/* ============================
+   INPUT
+============================ */
+.form-control,
+.form-select{
+    border-radius:12px;
+    border:1px solid #d6dce5;
+    transition:.3s;
+}
+.form-control:focus,
+.form-select:focus{
+    border-color:#1769aa;
+    box-shadow:0 0 0 .25rem rgba(23,105,170,.15);
+}
+/* ============================
+   BUTTON
+============================ */
+.btn{
+    border-radius:12px;
+    transition:.3s;
+}
+.btn-primary{
+    background:#1769aa;
+    border:none;
+}
+.btn-primary:hover{
+    transform:translateY(-3px);
+    box-shadow:0 10px 20px rgba(23,105,170,.25);
+}
+.btn-outline-secondary:hover{
+    transform:translateY(-3px);
+}
+/* ============================
+   FILE INPUT
+============================ */
+input[type=file]{
+    padding:10px;
+}
+/* ============================
+   FOOTER
+============================ */
+.footer{
+    margin-top:35px;
+    padding:20px;
+    text-align:center;
+    color:#64748b;
+    border-top:1px solid #dbe3ee;
+}
+.footer p{
+    margin:0;
+}
+/* ============================
+   ANIMASI
+============================ */
+.content{
+    animation:fadeIn .6s ease;
+}
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/* ============================
+   RESPONSIVE
+============================ */
+@media(max-width:768px){
+    .hero-dashboard{
+        padding:25px;
+        text-align:center;
+    }
+    .hero-time{
+        margin-top:20px;
+    }
+}
+/* ===========================
+   HERO KEGIATAN
+=========================== */
+.hero-dashboard{
+    background: linear-gradient(135deg,#1769aa,#22a06b);
+    color:#fff;
+    padding:35px;
+    border-radius:18px;
+    margin-bottom:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+    animation:fadeUp .8s;
+}
+.hero-dashboard h2{
+    font-weight:700;
+    margin-bottom:10px;
+}
+.hero-dashboard p{
+    opacity:.9;
+}
+.hero-dashboard h3{
+    font-size:34px;
+    font-weight:bold;
+}
+.hero-dashboard span{
+    font-size:15px;
+}
+/* ===========================
+   CARD
+=========================== */
+.stat-card{
+    transition:.3s;
+    cursor:pointer;
+}
+.stat-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 15px 30px rgba(0,0,0,.15);
+}
+/* ===========================
+   TABLE
+=========================== */
+.table tbody tr{
+    transition:.3s;
+}
+.table tbody tr:hover{
+    background:#eef6ff;
+}
+/* ===========================
+   INPUT SEARCH
+=========================== */
+.input-group-text{
+    background:#1769aa;
+    color:white;
+    border:none;
+}
+.form-control{
+    border-radius:0 10px 10px 0;
+}
+/* ===========================
+   BADGE
+=========================== */
+.badge{
+    font-size:13px;
+    padding:8px 12px;
+    border-radius:30px;
+}
+/* ===========================
+   BUTTON
+=========================== */
+.btn{
+    transition:.3s;
+}
+.btn:hover{
+    transform:translateY(-3px);
+}
+/* ===========================
+   FOOTER
+=========================== */
+.footer-dashboard{
+    margin-top:40px;
+    padding:20px;
+    text-align:center;
+    color:#6b7280;
+    font-size:14px;
+}
+/* ===========================
+   ANIMASI
+=========================== */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+.card-box{
+    animation:fadeUp .8s;
+}
+/* ===================================================
+   REGISTER PAGE
+=================================================== */
+.auth-card{
+    animation:fadeUp .8s ease;
+}
+.auth-card-wide{
+    max-width:750px;
+}
+/* Logo */
+.auth-logo{
+    width:75px;
+    height:75px;
+    margin:auto;
+    margin-bottom:20px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#1769aa,#22a06b);
+    color:#fff;
+    font-size:30px;
+    box-shadow:0 10px 25px rgba(23,105,170,.35);
+}
+/* Judul */
+.auth-card h1{
+    text-align:center;
+    font-weight:700;
+    margin-bottom:8px;
+}
+.auth-card p{
+    text-align:center;
+}
+/* Alert */
+.alert-info{
+    border:none;
+    border-radius:12px;
+}
+/* Input */
+.form-control,
+.form-select{
+    border-radius:12px;
+    transition:.3s;
+}
+.form-control:focus,
+.form-select:focus{
+    border-color:#1769aa;
+    box-shadow:0 0 12px rgba(23,105,170,.25);
+}
+/* Icon input */
+.input-group-text{
+    background:#1769aa;
+    color:white;
+    border:none;
+}
+/* Tombol */
+.btn{
+    border-radius:12px;
+    padding:12px;
+    font-weight:600;
+    transition:.3s;
+}
+.btn-primary{
+    background:#1769aa;
+    border:none;
+}
+.btn-primary:hover{
+    background:#0d5a97;
+    transform:translateY(-3px);
+}
+.btn-outline-secondary:hover{
+    transform:translateY(-3px);
+}
+/* Checkbox */
+.form-check{
+    background:#f8f9fa;
+    padding:14px;
+    border-radius:12px;
+}
+/* Link login */
+.auth-bottom{
+    text-align:center;
+}
+.auth-bottom a{
+    color:#1769aa;
+    text-decoration:none;
+    font-weight:600;
+}
+.auth-bottom a:hover{
+    text-decoration:underline;
+}
+/* Animasi */
+@keyframes fadeUp{
+    from{
+        opacity:0;
+        transform:translateY(25px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+/* Responsive */
+@media(max-width:768px){
+    .auth-card{
+        padding:25px;
+    }
+}
