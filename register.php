@@ -162,5 +162,5 @@
         </a>
     </p>
 </main>
-<script src="assets/js/register.js"></script>
+<script src="java/js/register.js"></script>
 </body>

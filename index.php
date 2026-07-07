@@ -112,6 +112,6 @@
 
 </main>
 
-<script src="assets/js/login.js"></script>
+<script src="java/js/login.js"></script>
 </body>
 </html>
