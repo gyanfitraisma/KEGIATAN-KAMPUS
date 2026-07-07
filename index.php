@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
   <meta charset="utf-8">
@@ -9,49 +9,109 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
+ 
 <body class="auth-page">
-  <main class="auth-card">
-    <div class="auth-logo">SK</div>
 
-    <h1>Login Admin</h1>
-    <p class="text-muted">Masuk untuk mengelola pendaftaran kegiatan kampus.</p>
-
-    <form action="#" method="post" class="mt-4">
-      <div class="mb-3">
-        <label class="form-label">Username</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-person"></i></span>
-          <input type="text" name="username" class="form-control" placeholder="Masukkan username">
+<main class="auth-card">
+    <div class="text-center mb-4">
+        <div class="auth-logo">
+            <i class="bi bi-mortarboard-fill"></i>
         </div>
-      </div>
 
-      <div class="mb-3">
-        <label class="form-label">Password</label>
-        <div class="input-group">
-          <span class="input-group-text"><i class="bi bi-lock"></i></span>
-          <input type="password" name="password" class="form-control" placeholder="Masukkan password">
+        <h1 class="fw-bold mt-3">Login Admin</h1>
+
+        <p class="text-muted">
+            Selamat datang di <strong>Sistem Pendaftaran Kegiatan Kampus</strong>.<br>
+            Silakan login untuk mengelola data kegiatan dan peserta.
+        </p>
+    </div>
+
+    <!-- Action form diarahkan langsung ke dashboard.html -->
+    <form action="dashboard.html" method="get" class="mt-4">
+
+        <div class="mb-3">
+            <label class="form-label">
+                <i class="bi bi-person-circle"></i>
+                Username
+            </label>
+
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-person"></i>
+                </span>
+
+                <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Masukkan username"
+                    required>
+            </div>
         </div>
-      </div>
 
-      <div class="d-flex justify-content-between align-items-center mb-4">
-        <div class="form-check">
-          <input class="form-check-input" type="checkbox" name="remember" id="remember">
-          <label class="form-check-label" for="remember">Ingat saya</label>
+        <div class="mb-3">
+            <label class="form-label">
+                <i class="bi bi-lock-fill"></i>
+                Password
+            </label>
+
+            <div class="input-group">
+                <span class="input-group-text">
+                    <i class="bi bi-key-fill"></i>
+                </span>
+
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    class="form-control"
+                    placeholder="Masukkan password"
+                    required>
+
+                <span class="input-group-text" id="togglePassword" style="cursor: pointer;">
+                     <i class="bi bi-eye" id="toggleIcon"></i>
+                </span>
+            </div>
         </div>
-        <a href="#" class="auth-link">Lupa password?</a>
-      </div>
 
-      <button type="submit" class="btn btn-primary w-100">
-        <i class="bi bi-box-arrow-in-right"></i> Login
-      </button>
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="form-check">
+                <input
+                    class="form-check-input"
+                    type="checkbox"
+                    id="remember">
+                <label class="form-check-label" for="remember">
+                    Ingat saya
+                </label>
+            </div>
+
+            <a href="#" class="auth-link">
+                Lupa Password?
+            </a>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 py-2">
+            <i class="bi bi-box-arrow-in-right"></i>
+            Login Sekarang
+        </button>
+
     </form>
 
-    <p class="auth-bottom">
-      Belum punya akun?
-      <a href="register.php">Daftar user</a>
+    <hr>
+
+    <p class="auth-bottom text-center">
+        Belum mempunyai akun?
+        <a href="register.html">
+            Daftar Sekarang
+        </a>
     </p>
-  </main>
+
+    <small class="text-muted d-block text-center mt-3">
+        © 2026 Sistem Pendaftaran Kegiatan Kampus
+    </small>
+
+</main>
+
+<script src="assets/js/login.js"></script>
 </body>
 </html>
-
-
