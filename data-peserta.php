@@ -9,6 +9,7 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
   <link href="assets/css/style.css" rel="stylesheet">
 </head>
+  
 <body>
   <aside class="sidebar">
     <div class="brand">
@@ -20,11 +21,11 @@
     </div>
 
     <nav class="menu">
-      <a href="dashboard.php" ><i class="bi bi-speedometer2"></i> Dashboard</a>
-      <a href="form-daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
-      <a href="data-peserta.php" class="active"><i class="bi bi-people"></i> Data Peserta</a>
-      <a href="edit-data.php"><i class="bi bi-pencil"></i> Edit Peserta</a>
-      <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
+      <a href="dashboard.html" ><i class="bi bi-speedometer2"></i> Dashboard</a>
+      <a href="form-daftar.html"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
+      <a href="data-peserta.html" class="active"><i class="bi bi-people"></i> Data Peserta</a>
+      <a href="edit-data.html"><i class="bi bi-pencil"></i> Edit Peserta</a>
+      <a href="kegiatan.html"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
       <a href="#"><i class="bi bi-box-arrow-in-right"></i> Log-out</a>
     </nav>
   </aside>
