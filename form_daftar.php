@@ -151,7 +151,7 @@ if (isset($_POST['simpan'])) {
 
     <!-- ================= CONTENT ================= -->
     <main class="content">
-        
+
     <!-- Header -->
     <section class="topbar">
         <div>
@@ -191,9 +191,13 @@ if (isset($_POST['simpan'])) {
             <div class="col-lg-4 text-lg-end">
                 <div class="hero-time">
                     <h3 id="jam">00:00:00</h3>
-                    <span id="
+                    <span id="tanggal">Senin, 01 Januari 2023</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
-                <!-- Footer -->
+    <!-- Footer -->
         <footer class="footer mt-4">
             <p>
                 © <?php echo date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus
@@ -201,6 +205,7 @@ if (isset($_POST['simpan'])) {
                 Dibuat untuk memenuhi tugas Pemrograman Web.
             </p>
         </footer>
+
     </main>
 
     <!-- Jam Otomatis -->
@@ -226,5 +231,6 @@ if (isset($_POST['simpan'])) {
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>
