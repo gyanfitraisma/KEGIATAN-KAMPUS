@@ -3,25 +3,29 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "db_kegiatan_camp_atau_apapun"; 
+$db   = "db_kegiatan_kampus";
 
-// AUTOMATISASI
-$koneksi = mysqli_connect($host, $user, $pass, "db_kegiatan_kampus");
+// MENGGUNAKAN VARIABEL $db YANG SUDAH DIDEFINISIKAN
+$koneksi = mysqli_connect($host, $user, $pass, $db);
 
 if (!$koneksi) {
     die("Koneksi database gagal. Tolong pastikan XAMPP (Apache & MySQL) sudah START ya Rida.");
 }
 
-// PHP akan otomatis nyari data pertama di tabel peserta 
-$query_cek = mysqli_query($koneksi, "SELECT id_peserta FROM peserta LIMIT 1");
-$data_cek = mysqli_fetch_assoc($query_cek);
-$id_peserta = isset($data_cek['id_peserta']) ? $data_cek['id_peserta'] : 1;
+// 2. AMBIL ID PESERTA (Dinamis dari URL, jika tidak ada, cari data pertama)
+if (isset($_GET['id'])) {
+    $id_peserta = $_GET['id'];
+} else {
+    $query_cek = mysqli_query($koneksi, "SELECT id_peserta FROM peserta LIMIT 1");
+    $data_cek = mysqli_fetch_assoc($query_cek);
+    $id_peserta = isset($data_cek['id_peserta']) ? $data_cek['id_peserta'] : 1;
+}
 
 $query = "SELECT * FROM peserta WHERE id_peserta = '$id_peserta'";
 $result = mysqli_query($koneksi, $query);
 $data = mysqli_fetch_assoc($result);
 
-// 3. PROSES UPDATE DATA (DIPAKSA MASUK KE DATABASE)
+// 3. PROSES UPDATE DATA
 $pesan = "";
 if (isset($_POST['update'])) {
     $nim                = $_POST['nim'];
@@ -34,7 +38,7 @@ if (isset($_POST['update'])) {
     $alamat             = $_POST['alamat'];
     $status_pendaftaran = $_POST['status_pendaftaran'];
 
-    // Update data dipaksa ke id_peserta yang aktif
+    // Update data berdasarkan id_peserta yang aktif
     $query_update = "UPDATE peserta SET 
                     nim = '$nim', 
                     nama_lengkap = '$nama_lengkap', 
@@ -48,8 +52,8 @@ if (isset($_POST['update'])) {
                     WHERE id_peserta = '$id_peserta'";
 
     if (mysqli_query($koneksi, $query_update)) {
-        // Langsung redirect ke halaman ini lagi dengan status sukses
-        header("Location: edit_data.php?status=sukses");
+        // Redirect kembali dengan menyertakan id dan status sukses
+        header("Location: edit_data.php?id=$id_peserta&status=sukses");
         exit();
     } else {
         $pesan = "<div class='alert alert-danger'>Aduh eror Rida, ini pesan erornya: " . mysqli_error($koneksi) . "</div>";
@@ -129,7 +133,8 @@ if (isset($_POST['update'])) {
             }
             ?>
 
-            <form class="row g-4" method="POST" action="">
+            <!-- Ditambahkan enctype karena ada input file foto -->
+            <form class="row g-4" method="POST" action="" enctype="multipart/form-data">
                 
                 <!-- Nama Lengkap -->
                 <div class="col-md-6">
@@ -159,7 +164,7 @@ if (isset($_POST['update'])) {
                             echo "<option value='$i' $selected>$i</option>";
                         }
                         ?>
-                    </select>
+                    </</select>
                 </div>
 
                 <!-- Nomor HP -->
