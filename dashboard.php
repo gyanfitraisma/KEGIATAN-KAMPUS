@@ -8,8 +8,8 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-// Ambil username dari session
-$username = $_SESSION['username'];
+// Ambil nama lengkap dari session
+$nama = $_SESSION['nama_lengkap'];
 ?>
 
 <!DOCTYPE html>
