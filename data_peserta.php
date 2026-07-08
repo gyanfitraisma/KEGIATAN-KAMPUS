@@ -241,11 +241,11 @@ $data_kegiatan = mysqli_query(
 
                 <td>
                     <a 
-                        href="edit-data.php?id=<?= $peserta['id_peserta']; ?>"
-                        class="btn btn-sm btn-warning">
+                     href="edit_data.php?id=<?= $peserta['id_peserta']; ?>"
+                    class="btn btn-sm btn-warning">
 
-                        <i class="bi bi-pencil"></i>
-                        Edit
+                    <i class="bi bi-pencil"></i>
+                    Edit
                     </a>
 
                     <a 
