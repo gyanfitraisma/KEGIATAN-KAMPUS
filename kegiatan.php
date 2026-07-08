@@ -1,6 +1,17 @@
 <?php
-// Hubungkan ke file koneksi database
-include 'koneksi.php';
+// === KONFIGURASI DATABASE LANGSUNG ===
+$hostname = "localhost";
+$username = "root";
+$password = "";
+$database = "db_kegiatan_kampus"; 
+
+// Membuat koneksi ke MySQL
+$db = mysqli_connect($hostname, $username, $password, $database);
+
+// Periksa apakah koneksi berhasil
+if (!$db) {
+    die("Koneksi database gagal: " . mysqli_connect_error());
+}
 
 // 1. Query untuk mengambil total statistik kegiatan
 $query_total = mysqli_query($db, "SELECT COUNT(*) as total FROM kegiatan");
@@ -183,7 +194,6 @@ function formatTanggalIndo($date) {
                         <?php 
                         if (mysqli_num_rows($query_tabel) > 0) {
                             while ($row = mysqli_fetch_assoc($query_tabel)) {
-                                // Menentukan warna badge berdasarkan status dari DB
                                 $badge_class = "bg-secondary";
                                 if ($row['status'] == 'Dibuka') {
                                     $badge_class = "bg-success";
