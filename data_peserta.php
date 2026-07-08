@@ -64,7 +64,6 @@ $data_kegiatan = mysqli_query(
         </div>
     </div>
 
-    <!-- LINK SIDEBAR SEKARANG MENGGUNAKAN UNDERSCORE -->
     <nav class="menu">
         <a href="dashboard.php">
             <i class="bi bi-speedometer2"></i> Dashboard
@@ -173,9 +172,9 @@ $data_kegiatan = mysqli_query(
                     <a href="edit_data.php?id=<?= $peserta['id_peserta']; ?>" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil"></i> Edit
                     </a>
-                    <!-- LINK HAPUS JADI hapus_peserta.php -->
+                    <!-- BAGIAN INI SUDAH DIPERBAIKI MENJADI DINAMIS SESUAI ID DATA -->
                     <a href="hapus_peserta.php?id=<?= $peserta['id_peserta']; ?>" 
-                       onclick="return confirm('Yakin ingin menghapus data ini?')" 
+                       onclick="return confirm('Yakin ingin menghapus data milik <?= htmlspecialchars($peserta['nama_lengkap']); ?>?')" 
                        class="btn btn-sm btn-danger">
                         <i class="bi bi-trash"></i> Hapus
                     </a>
