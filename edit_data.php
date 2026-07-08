@@ -125,7 +125,7 @@ if (isset($_POST['update'])) {
             <?php 
             echo $pesan; 
             if (isset($_GET['status']) && $_GET['status'] == 'sukses') {
-                echo "<div class='alert alert-success'>🎉 ALHAMDULILLAH, Data Aridatul Jannati Berhasil Diperbarui!</div>";
+                echo "<div class='alert alert-success'>🎉 Data Berhasil Diperbarui!</div>";
             }
             ?>
 
