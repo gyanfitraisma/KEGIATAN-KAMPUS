@@ -2,34 +2,79 @@
 session_start();
 include "koneksi.php";
 
+// Cek login
 if (!isset($_SESSION['login'])) {
     header("Location: index.php");
     exit;
 }
 
+// Proses simpan data
 if (isset($_POST['simpan'])) {
 
-    $id_kegiatan   = $_POST['id_kegiatan'];
-    $nim           = $_POST['nim'];
-    $nama_lengkap  = $_POST['nama_lengkap'];
-    $program_studi = $_POST['program_studi'];
-    $semester      = $_POST['semester'];
-    $no_hp         = $_POST['no_hp'];
-    $email         = $_POST['email'];
-    $alamat        = $_POST['alamat'];
+    $id_kegiatan = mysqli_real_escape_string($conn, $_POST['id_kegiatan']);
+    $nama_lengkap = mysqli_real_escape_string($conn, $_POST['nama_lengkap']);
+    $nim = mysqli_real_escape_string($conn, $_POST['nim']);
+    $program_studi = mysqli_real_escape_string($conn, $_POST['program_studi']);
+    $semester = mysqli_real_escape_string($conn, $_POST['semester']);
+    $jenis_kelamin = mysqli_real_escape_string($conn, $_POST['jenis_kelamin']);
+    $no_hp = mysqli_real_escape_string($conn, $_POST['no_hp']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
 
-    $query = mysqli_query($conn, "INSERT INTO peserta
-    (id_kegiatan,nim,nama_lengkap,program_studi,semester,no_hp,email,alamat,status_pendaftaran)
-    VALUES
-    ('$id_kegiatan','$nim','$nama_lengkap','$program_studi','$semester','$no_hp','$email','$alamat','terdaftar')");
+    // Upload Foto
+    $foto = "";
 
-    if($query){
+    if (isset($_FILES['foto']) && $_FILES['foto']['error'] == 0) {
+
+        $foto = time() . "_" . basename($_FILES['foto']['name']);
+
+        move_uploaded_file(
+            $_FILES['foto']['tmp_name'],
+            "upload/" . $foto
+        );
+    }
+
+    $query = mysqli_query($conn, "
+        INSERT INTO peserta
+        (
+            id_kegiatan,
+            nim,
+            nama_lengkap,
+            program_studi,
+            semester,
+            jenis_kelamin,
+            no_hp,
+            email,
+            alamat,
+            foto,
+            status_pendaftaran
+        )
+        VALUES
+        (
+            '$id_kegiatan',
+            '$nim',
+            '$nama_lengkap',
+            '$program_studi',
+            '$semester',
+            '$jenis_kelamin',
+            '$no_hp',
+            '$email',
+            '$alamat',
+            '$foto',
+            'terdaftar'
+        )
+    ");
+
+    if ($query) {
         echo "<script>
-        alert('Data berhasil disimpan!');
-        window.location='data_peserta.php';
-        </script>";
-    }else{
-        echo "<script>alert('Data gagal disimpan!');</script>";
+                alert('Data peserta berhasil disimpan!');
+                window.location='data_peserta.php';
+              </script>";
+        exit;
+    } else {
+        echo "<script>
+                alert('Gagal menyimpan data!');
+              </script>";
     }
 }
 ?>
@@ -48,6 +93,8 @@ if (isset($_POST['simpan'])) {
 
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
+
+<body>
 
 <body>
 
