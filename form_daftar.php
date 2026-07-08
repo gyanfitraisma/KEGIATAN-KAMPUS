@@ -415,11 +415,43 @@ if (isset($_POST['simpan'])) {
 
                         <i class="bi bi-arrow-clockwise"></i>
                         Reset Form
-
                     </button>
-
                 </div>
-
             </form>
-
         </section>   
+
+                <!-- Footer -->
+        <footer class="footer mt-4">
+            <p>
+                © <?php echo date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus
+                <br>
+                Dibuat untuk memenuhi tugas Pemrograman Web.
+            </p>
+        </footer>
+    </main>
+
+    <!-- Jam Otomatis -->
+    <script>
+    function updateJam() {
+        const sekarang = new Date();
+
+        document.getElementById("jam").innerHTML =
+            sekarang.toLocaleTimeString("id-ID");
+
+        document.getElementById("tanggal").innerHTML =
+            sekarang.toLocaleDateString("id-ID", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+    }
+
+    setInterval(updateJam, 1000);
+    updateJam();
+    </script>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
