@@ -1,4 +1,17 @@
-<?php include 'koneksi.php'; ?>
+<?php
+session_start();
+include "koneksi.php";
+
+// Cek apakah admin sudah login
+if (!isset($_SESSION['login'])) {
+    header("Location: index.php");
+    exit;
+}
+
+// Ambil username dari session
+$username = $_SESSION['username'];
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -10,7 +23,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-    
+
 <body>
 
     <aside class="sidebar">
@@ -28,7 +41,7 @@
 
             <a href="dashboard.php" class="active">
                 <i class="bi bi-speedometer2"></i>
-            Dashboard
+                Dashboard
             </a>
 
             <a href="form-daftar.php">
@@ -51,7 +64,7 @@
                 Data Kegiatan
             </a>
 
-            <a href="index.php">
+            <a href="logout.php">
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
@@ -100,7 +113,7 @@
                 <div class="col-lg-8">
 
                     <h2 id="sapaan">
-                        Selamat Datang, Admin 👋
+                        Selamat Datang, <?php echo htmlspecialchars($username); ?> 👋
                     </h2>
 
                     <p>
@@ -193,6 +206,7 @@
                 </a>
             </div>
         </section>
+
         <section class="row g-4 mb-4">
 
             <div class="col-lg-3 col-md-6">
@@ -226,6 +240,7 @@
                     <p>Kegiatan Selesai</p>
                 </div>
             </div>
+
         </section>
 
         <section class="row g-4">
@@ -302,7 +317,7 @@
 
         <footer class="footer-dashboard">
             <p>
-                © 2026 Sistem Pendaftaran Kegiatan Kampus
+                © <?php echo date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus
                 <br>
                 Universitas • Admin Dashboard Version 1.0
             </p>
