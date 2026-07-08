@@ -146,326 +146,52 @@ if (isset($_POST['simpan'])) {
                 <i class="bi bi-box-arrow-right"></i>
                 Logout
             </a>
-
         </nav>
     </aside>
 
     <!-- ================= CONTENT ================= -->
     <main class="content">
+        
+    <!-- Header -->
+    <section class="topbar">
+        <div>
+            <p class="label">
+                Form Pendaftaran
+            </p>
 
-        <!-- Header -->
-        <section class="topbar">
+            <h2>
+                Pendaftaran Peserta Kegiatan Kampus
+            </h2>
 
-            <div>
+            <p class="text-muted">
+                Isi seluruh data peserta dengan lengkap dan benar agar proses
+                pendaftaran dapat diproses oleh admin.
+            </p>
+        </div>
 
-                <p class="label">
-                    Form Pendaftaran
+        <div>
+            <a href="data_peserta.php" class="btn btn-primary">
+                <i class="bi bi-people-fill"></i>
+                Lihat Data Peserta
+            </a>
+        </div>
+    </section>
+
+    <!-- HERO -->
+    <section class="hero-dashboard mb-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2>📝 Formulir Pendaftaran Peserta</h2>
+                <p>
+                    Silakan lengkapi data mahasiswa yang akan mengikuti
+                    kegiatan kampus.
                 </p>
-
-                <h2>
-                    Pendaftaran Peserta Kegiatan Kampus
-                </h2>
-
-                <p class="text-muted">
-                    Isi seluruh data peserta dengan lengkap dan benar agar proses
-                    pendaftaran dapat diproses oleh admin.
-                </p>
-
             </div>
 
-            <div>
-                <a href="data_peserta.php" class="btn btn-primary">
-                    <i class="bi bi-people-fill"></i>
-                    Lihat Data Peserta
-                </a>
-            </div>
-
-        </section>
-
-        <!-- HERO -->
-
-        <section class="hero-dashboard mb-4">
-
-            <div class="row align-items-center">
-
-                <div class="col-lg-8">
-
-                    <h2>
-                        📝 Formulir Pendaftaran Peserta
-                    </h2>
-
-                    <p>
-                        Silakan lengkapi data mahasiswa yang akan mengikuti
-                        kegiatan kampus. Pastikan seluruh informasi sudah benar
-                        sebelum menekan tombol simpan.
-                    </p>
-
-                </div>
-
-                <div class="col-lg-4 text-lg-end">
-
-                    <div class="hero-time">
-
-                        <h3 id="jam">
-                            00:00:00
-                        </h3>
-
-                        <span id="tanggal">
-                            Senin, 1 Januari 2026
-                        </span>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- CARD FORM -->
-
-        <section class="card-box mb-4">
-
-            <div class="section-title">
-
-                <h3>
-                    <i class="bi bi-person-plus-fill text-primary"></i>
-                    Form Pendaftaran Peserta
-                </h3>
-
-                <span>
-                    Lengkapi seluruh data
-                </span>
-
-            </div>
-
-            <form method="POST" class="row g-4">
-
-                <!-- Nama Lengkap -->
-
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-person-fill text-primary"></i>
-                        Nama Lengkap
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="nama_lengkap"
-                        placeholder="Masukkan nama lengkap"
-                        required>
-
-                </div>
-
-                <!-- NIM -->
-
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-credit-card-fill text-primary"></i>
-                        NIM
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="nim"
-                        placeholder="Masukkan NIM"
-                        required>
-
-                </div>
-
-                <!-- Program Studi -->
-
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-mortarboard-fill text-primary"></i>
-                        Program Studi
-                    </label>
-
-                    <input
-                        type="text"
-                        class="form-control"
-                        name="program_studi"
-                        placeholder="Contoh : Pendidikan Teknologi Informasi"
-                        required>
-                </div>
-
-                            <!-- Semester -->
-                <div class="col-md-3">
-
-                    <label class="form-label">
-                        <i class="bi bi-book-half text-primary"></i>
-                        Semester
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="semester"
-                        required>
-
-                        <option value="">Pilih Semester</option>
-
-                        <?php for($i=1;$i<=8;$i++){ ?>
-                            <option value="<?= $i; ?>"><?= $i; ?></option>
-                        <?php } ?>
-
-                    </select>
-
-                </div>
-
-                <!-- Nomor HP -->
-                <div class="col-md-3">
-
-                    <label class="form-label">
-                        <i class="bi bi-phone-fill text-primary"></i>
-                        Nomor HP
-                    </label>
-
-                    <input
-                        type="tel"
-                        class="form-control"
-                        name="no_hp"
-                        placeholder="08xxxxxxxxxx"
-                        required>
-
-                </div>
-
-                <!-- Email -->
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-envelope-fill text-primary"></i>
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        class="form-control"
-                        name="email"
-                        placeholder="nama@email.com"
-                        required>
-
-                </div>
-
-                <!-- Pilihan Kegiatan -->
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-calendar-event-fill text-primary"></i>
-                        Pilih Kegiatan
-                    </label>
-
-                    <select
-                        class="form-select"
-                        name="id_kegiatan"
-                        required>
-
-                        <option value="">Pilih Kegiatan</option>
-
-                        <?php
-                        $kegiatan = mysqli_query($conn,"SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
-
-                        while($row = mysqli_fetch_assoc($kegiatan)){
-                        ?>
-
-                        <option value="<?= $row['id_kegiatan']; ?>">
-                            <?= htmlspecialchars($row['nama_kegiatan']); ?>
-                        </option>
-
-                        <?php } ?>
-
-                    </select>
-
-                </div>
-
-                <!-- Alamat -->
-                <div class="col-12">
-
-                    <label class="form-label">
-                        <i class="bi bi-geo-alt-fill text-primary"></i>
-                        Alamat
-                    </label>
-
-                    <textarea
-                        class="form-control"
-                        name="alamat"
-                        rows="4"
-                        placeholder="Masukkan alamat lengkap..."
-                        required></textarea>
-
-                </div>
-
-                <!-- Upload Foto -->
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-image-fill text-primary"></i>
-                        Upload Foto
-                    </label>
-
-                    <input
-                        type="file"
-                        class="form-control"
-                        accept="image/*"
-                        disabled>
-
-                    <small class="text-muted">
-                        (Belum digunakan karena tabel database belum memiliki kolom foto.)
-                    </small>
-
-                </div>
-
-                <!-- Jenis Kelamin -->
-                <div class="col-md-6">
-
-                    <label class="form-label">
-                        <i class="bi bi-gender-ambiguous text-primary"></i>
-                        Jenis Kelamin
-                    </label>
-
-                    <select
-                        class="form-select"
-                        disabled>
-
-                        <option>Pilih Jenis Kelamin</option>
-                        <option>Laki-laki</option>
-                        <option>Perempuan</option>
-
-                    </select>
-
-                    <small class="text-muted">
-                        (Belum digunakan karena tabel database belum memiliki kolom jenis kelamin.)
-                    </small>
-
-                </div>
-
-                <!-- Tombol -->
-                <div class="col-12 mt-3">
-
-                    <button
-                        type="submit"
-                        name="simpan"
-                        class="btn btn-primary me-2">
-
-                        <i class="bi bi-check-circle-fill"></i>
-                        Simpan Data
-
-                    </button>
-
-                    <button
-                        type="reset"
-                        class="btn btn-outline-secondary">
-
-                        <i class="bi bi-arrow-clockwise"></i>
-                        Reset Form
-                    </button>
-                </div>
-            </form>
-        </section>   
+            <div class="col-lg-4 text-lg-end">
+                <div class="hero-time">
+                    <h3 id="jam">00:00:00</h3>
+                    <span id="
 
                 <!-- Footer -->
         <footer class="footer mt-4">
