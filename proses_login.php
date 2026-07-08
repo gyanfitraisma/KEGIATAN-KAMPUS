@@ -2,17 +2,17 @@
 session_start();
 include "koneksi.php";
 
-if(isset($_POST['username']) && isset($_POST['password'])){
+if (isset($_POST['username']) && isset($_POST['password'])) {
 
-    $username = mysqli_real_escape_string($conn,$_POST['username']);
-    $password = mysqli_real_escape_string($conn,$_POST['password']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $query = mysqli_query($conn,"SELECT * FROM user_login
+    $query = mysqli_query($conn, "SELECT * FROM user_login
         WHERE username='$username'
         AND password='$password'
         AND status='aktif'");
 
-    if(mysqli_num_rows($query) > 0){
+    if (mysqli_num_rows($query) > 0) {
 
         $data = mysqli_fetch_assoc($query);
 
@@ -23,19 +23,19 @@ if(isset($_POST['username']) && isset($_POST['password'])){
         $_SESSION['role'] = $data['role'];
 
         header("Location: dashboard.php");
-        exit;
+        exit();
 
-    }else{
+    } else {
 
         header("Location: index.php?error=1");
-        exit;
+        exit();
 
     }
 
-}else{
+} else {
 
     header("Location: index.php");
-    exit;
+    exit();
 
 }
 ?>
