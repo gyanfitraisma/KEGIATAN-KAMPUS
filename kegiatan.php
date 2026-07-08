@@ -1,38 +1,27 @@
 <?php
-// === KONFIGURASI DATABASE LANGSUNG ===
-$hostname = "localhost";
-$username = "root";
-$password = "";
-$database = "db_kegiatan_kampus"; 
+// Hubungkan ke file koneksi database
+include 'koneksi.php';
 
-// Membuat koneksi ke MySQL
-$db = mysqli_connect($hostname, $username, $password, $database);
-
-// Periksa apakah koneksi berhasil
-if (!$db) {
-    die("Koneksi database gagal: " . mysqli_connect_error());
-}
-
-// 1. Query untuk mengambil total statistik kegiatan
-$query_total = mysqli_query($db, "SELECT COUNT(*) as total FROM kegiatan");
+// 1. Query untuk mengambil total statistik kegiatan (Variabel ganti jadi $koneksi)
+$query_total = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan");
 $total_kegiatan = mysqli_fetch_assoc($query_total)['total'];
 
-$query_aktif = mysqli_query($db, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Dibuka' OR status = 'Terbatas'");
+$query_aktif = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Dibuka' OR status = 'Terbatas'");
 $kegiatan_aktif = mysqli_fetch_assoc($query_aktif)['total'];
 
-$query_mendatang = mysqli_query($db, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Akan Datang'");
+$query_mendatang = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Akan Datang'");
 $kegiatan_mendatang = mysqli_fetch_assoc($query_mendatang)['total'];
 
-$query_selesai = mysqli_query($db, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Selesai'");
+$query_selesai = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Selesai'");
 $kegiatan_selesai = mysqli_fetch_assoc($query_selesai)['total'];
 
-// 2. Logika Pencarian & Pengambilan Data Tabel
+// 2. Logika Pencarian & Pengambilan Data Tabel (Variabel ganti jadi $koneksi)
 $search = "";
 if (isset($_GET['search'])) {
-    $search = mysqli_real_escape_string($db, $_GET['search']);
-    $query_tabel = mysqli_query($db, "SELECT * FROM kegiatan WHERE nama_kegiatan LIKE '%$search%' ORDER BY tanggal ASC");
+    $search = mysqli_real_escape_string($koneksi, $_GET['search']);
+    $query_tabel = mysqli_query($koneksi, "SELECT * FROM kegiatan WHERE nama_kegiatan LIKE '%$search%' ORDER BY tanggal ASC");
 } else {
-    $query_tabel = mysqli_query($db, "SELECT * FROM kegiatan ORDER BY tanggal ASC");
+    $query_tabel = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY tanggal ASC");
 }
 
 // Fungsi bantu untuk format tanggal Indonesia
@@ -45,6 +34,7 @@ function formatTanggalIndo($date) {
     return $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
