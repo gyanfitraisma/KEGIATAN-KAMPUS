@@ -50,6 +50,7 @@ if (isset($_GET['error'])) {
     <?php endif; ?>
 
     <!-- Form Login -->
+    <!-- Diarahkan ke proses_login.php dengan underscore -->
     <form action="proses_login.php" method="post" class="mt-4">
 
         <div class="mb-3">
@@ -132,7 +133,7 @@ if (isset($_GET['error'])) {
     </p>
 
     <small class="text-muted d-block text-center mt-3">
-        © <?php echo date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus
+        © 2026 Sistem Pendaftaran Kegiatan Kampus
     </small>
 
 </main>
