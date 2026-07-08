@@ -4,10 +4,11 @@ include "koneksi.php";
 
 if (isset($_POST['username']) && isset($_POST['password'])) {
 
-    $username = mysqli_real_escape_string($conn, $_POST['username']);
-    $password = mysqli_real_escape_string($conn, $_POST['password']);
+    // Mengubah $conn menjadi $koneksi biar sama dengan file koneksi.php kamu
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
 
-    $query = mysqli_query($conn, "SELECT * FROM user_login
+    $query = mysqli_query($koneksi, "SELECT * FROM user_login
         WHERE username='$username'
         AND password='$password'
         AND status='aktif'");
