@@ -113,7 +113,7 @@ $nama = $_SESSION['nama_lengkap'];
                 <div class="col-lg-8">
 
                     <h2 id="sapaan">
-                        Selamat Datang, <?php echo htmlspecialchars($username); ?> 👋
+                     Selamat Datang, <?php echo htmlspecialchars($nama); ?> 👋
                     </h2>
 
                     <p>
