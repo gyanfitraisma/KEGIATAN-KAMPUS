@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // 3. Eksekusi: Masukkan data ke database
             // Sesuaikan nama kolom berikut dengan struktur tabel user di phpMyAdmin kamu
-            $query = "INSERT INTO user (nama_lengkap, username, email, no_hp, password, role, status) 
+            $query = "INSERT INTO user_login (nama_lengkap, username, email, no_hp, password, role, status) 
                       VALUES ('$nama_lengkap', '$username', '$email', '$no_hp', '$password_hashed', '$role_akses', '$status_akun')";
             
             if (mysqli_query($koneksi, $query)) {
