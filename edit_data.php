@@ -5,7 +5,6 @@ $user = "root";
 $pass = "";
 $db   = "db_kegiatan_kampus";
 
-// MENGGUNAKAN VARIABEL $db YANG SUDAH DIDEFINISIKAN
 $koneksi = mysqli_connect($host, $user, $pass, $db);
 
 if (!$koneksi) {
@@ -25,6 +24,9 @@ $query = "SELECT * FROM peserta WHERE id_peserta = '$id_peserta'";
 $result = mysqli_query($koneksi, $query);
 $data = mysqli_fetch_assoc($result);
 
+// Ambil daftar kegiatan dari database untuk pilihan dropdown menu kegiatan
+$data_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
+
 // 3. PROSES UPDATE DATA
 $pesan = "";
 if (isset($_POST['update'])) {
@@ -36,6 +38,7 @@ if (isset($_POST['update'])) {
     $no_hp              = $_POST['no_hp'];
     $email              = $_POST['email'];
     $alamat             = $_POST['alamat'];
+    $id_kegiatan        = $_POST['id_kegiatan']; // Mengambil nilai kegiatan baru
     $status_pendaftaran = $_POST['status_pendaftaran'];
 
     // Update data berdasarkan id_peserta yang aktif
@@ -48,6 +51,7 @@ if (isset($_POST['update'])) {
                     no_hp = '$no_hp', 
                     email = '$email', 
                     alamat = '$alamat', 
+                    id_kegiatan = '$id_kegiatan',
                     status_pendaftaran = '$status_pendaftaran' 
                     WHERE id_peserta = '$id_peserta'";
 
@@ -84,8 +88,8 @@ if (isset($_POST['update'])) {
         </div>
         <nav class="menu">
             <a href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
-            <a href="form-daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
-            <a href="data-peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
+            <a href="form_daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
+            <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
             <a href="edit_data.php" class="active"><i class="bi bi-pencil-square"></i> Edit Peserta</a>
             <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
             <a href="index.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
@@ -112,7 +116,7 @@ if (isset($_POST['update'])) {
                 <div class="col-lg-4 text-lg-end">
                     <div class="hero-time">
                         <h3 id="jam">00:00:00</h3>
-                        <span id="tanggal">Senin, 1 Januari 2026</span>
+                        <span id="tanggal">Kamis, 9 Juli 2026</span>
                     </div>
                 </div>
             </div>
@@ -133,7 +137,6 @@ if (isset($_POST['update'])) {
             }
             ?>
 
-            <!-- Ditambahkan enctype karena ada input file foto -->
             <form class="row g-4" method="POST" action="" enctype="multipart/form-data">
                 
                 <!-- Nama Lengkap -->
@@ -164,7 +167,7 @@ if (isset($_POST['update'])) {
                             echo "<option value='$i' $selected>$i</option>";
                         }
                         ?>
-                    </</select>
+                    </select>
                 </div>
 
                 <!-- Nomor HP -->
@@ -179,11 +182,15 @@ if (isset($_POST['update'])) {
                     <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($data['email'] ?? ''); ?>">
                 </div>
 
-                <!-- Kegiatan -->
+                <!-- Kegiatan (SUDAH AKTIF DAN AMBIL DARI DATABASE) -->
                 <div class="col-md-6">
                     <label class="form-label"><i class="bi bi-calendar-event-fill text-primary"></i> Kegiatan</label>
-                    <select class="form-select" disabled>
-                        <option>Workshop UI / UX</option>
+                    <select name="id_kegiatan" class="form-select">
+                        <?php while($kegiatan = mysqli_fetch_assoc($data_kegiatan)){ ?>
+                            <option value="<?= $kegiatan['id_kegiatan']; ?>" <?= (($data['id_kegiatan'] ?? '') == $kegiatan['id_kegiatan']) ? 'selected' : ''; ?>>
+                                <?= htmlspecialchars($kegiatan['nama_kegiatan']); ?>
+                            </option>
+                        <?php } ?>
                     </select>
                 </div>
 
@@ -226,7 +233,7 @@ if (isset($_POST['update'])) {
                     <button type="reset" class="btn btn-outline-secondary me-2">
                         <i class="bi bi-arrow-clockwise"></i> Reset
                     </button>
-                    <a href="data-peserta.php" class="btn btn-success">
+                    <a href="data_peserta.php" class="btn btn-success">
                         <i class="bi bi-arrow-left-circle"></i> Kembali
                     </a>
                 </div>
@@ -244,7 +251,7 @@ if (isset($_POST['update'])) {
     function updateJam(){
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID",{
+        document.getElementById("tanggal").innerHTML = ClinicalDate = sekarang.toLocaleDateString("id-ID",{
             weekday:"long", day:"numeric", month:"long", year:"numeric"
         });
     }
