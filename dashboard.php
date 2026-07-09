@@ -37,6 +37,7 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
         </div>
 
+        <!-- LINK SIDEBAR SUDAH DIUBAH JADI UNDERSCORE -->
         <nav class="menu">
 
             <a href="dashboard.php" class="active">
@@ -44,17 +45,17 @@ $nama = $_SESSION['nama_lengkap'];
                 Dashboard
             </a>
 
-            <a href="form-daftar.php">
+            <a href="form_daftar.php">
                 <i class="bi bi-pencil-square"></i>
                 Form Pendaftaran
             </a>
 
-            <a href="data-peserta.php">
+            <a href="data_peserta.php">
                 <i class="bi bi-people"></i>
                 Data Peserta
             </a>
 
-            <a href="edit-data.php">
+            <a href="edit_data.php">
                 <i class="bi bi-pencil"></i>
                 Edit Peserta
             </a>
@@ -92,7 +93,8 @@ $nama = $_SESSION['nama_lengkap'];
 
             <div class="d-flex gap-2">
 
-                <a href="form-daftar.php" class="btn btn-primary">
+                <!-- LINK TOMBOL SUDAH DIUBAH JADI UNDERSCORE -->
+                <a href="form_daftar.php" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i>
                     Daftar Peserta
                 </a>
@@ -173,9 +175,10 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
         </section>
 
+        <!-- LINK QUICK CARD SUDAH DIUBAH JADI UNDERSCORE -->
         <section class="row g-3 mb-4">
             <div class="col-md-3">
-                <a href="form-daftar.php" class="quick-card text-decoration-none">
+                <a href="form_daftar.php" class="quick-card text-decoration-none">
                     <i class="bi bi-person-plus-fill"></i>
                     <h5>Tambah Peserta</h5>
                     <p>Daftarkan peserta baru</p>
@@ -183,7 +186,7 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
 
             <div class="col-md-3">
-                <a href="data-peserta.php" class="quick-card text-decoration-none">
+                <a href="data_peserta.php" class="quick-card text-decoration-none">
                     <i class="bi bi-people-fill"></i>
                     <h5>Data Peserta</h5>
                     <p>Lihat seluruh peserta</p>
@@ -199,7 +202,7 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
 
             <div class="col-md-3">
-                <a href="edit-data.php" class="quick-card text-decoration-none">
+                <a href="edit_data.php" class="quick-card text-decoration-none">
                     <i class="bi bi-pencil-square"></i>
                     <h5>Edit Data</h5>
                     <p>Ubah data peserta</p>
@@ -317,7 +320,7 @@ $nama = $_SESSION['nama_lengkap'];
 
         <footer class="footer-dashboard">
             <p>
-                © <?php echo date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus
+                © 2026 Sistem Pendaftaran Kegiatan Kampus
                 <br>
                 Universitas • Admin Dashboard Version 1.0
             </p>
