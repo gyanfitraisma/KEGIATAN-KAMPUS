@@ -137,7 +137,7 @@ if (isset($_POST['update'])) {
             }
             ?>
 
-            <form class="row g-4" method="POST" action="" enctype="multipart/form-data">
+            <form id="formEdit" class="row g-4" method="POST" action="" enctype="multipart/form-data">
                 
                 <!-- Nama Lengkap -->
                 <div class="col-md-6">
@@ -230,7 +230,8 @@ if (isset($_POST['update'])) {
                     <button type="submit" name="update" class="btn btn-primary me-2">
                         <i class="bi bi-save-fill"></i> Update Data
                     </button>
-                    <button type="reset" class="btn btn-outline-secondary me-2">
+                    <!-- Menggunakan tipe button + fungsi JS kosongkanForm -->
+                    <button type="button" onclick="kosongkanForm()" class="btn btn-outline-secondary me-2">
                         <i class="bi bi-arrow-clockwise"></i> Reset
                     </button>
                     <a href="data_peserta.php" class="btn btn-success">
@@ -246,17 +247,31 @@ if (isset($_POST['update'])) {
         </footer>
     </main>
 
-    <!-- Script Jam -->
+    <!-- Script Jam & Fungsi Mengosongkan Form -->
     <script>
     function updateJam(){
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = ClinicalDate = sekarang.toLocaleDateString("id-ID",{
+        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID",{
             weekday:"long", day:"numeric", month:"long", year:"numeric"
         });
     }
     setInterval(updateJam,1000);
     updateJam();
+
+    // JAVASCRIPT UNTUK MENGOSONGKAN FORM TOTAL
+    function kosongkanForm() {
+        // Ambil elemen form berdasarkan ID
+        const form = document.getElementById("formEdit");
+        
+        // Bersihkan seluruh tipe input teks, email, file, dan textarea
+        const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="file"], textarea');
+        inputs.forEach(input => input.value = '');
+
+        // Kembalikan semua elemen dropdown select ke baris pilihan pertama (paling atas)
+        const selects = form.querySelectorAll('select');
+        selects.forEach(select => select.selectedIndex = 0);
+    }
     </script>
 </body>
 </html>
