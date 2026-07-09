@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pesan_error = "Konfirmasi password tidak cocok!";
     } else {
         // 2. Validasi: Cek apakah username sudah pernah terdaftar
-        $cek_username = mysqli_query($koneksi, "SELECT * FROM user WHERE username = '$username'");
+        $cek_username = mysqli_query($koneksi, "SELECT * FROM user_login WHERE username = '$username'");
         
         if (mysqli_num_rows($cek_username) > 0) {
             $pesan_error = "Username sudah digunakan, pilih username lain!";
