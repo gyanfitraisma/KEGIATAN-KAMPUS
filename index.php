@@ -127,7 +127,7 @@ if (isset($_GET['error'])) {
 
     <p class="auth-bottom text-center">
         Belum mempunyai akun?
-        <a href="register.html">
+        <a href="register.php">
             Daftar Sekarang
         </a>
     </p>
