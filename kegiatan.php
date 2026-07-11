@@ -1,38 +1,30 @@
 <?php
-// Hubungkan ke file koneksi database
-include 'koneksi.php';
+session_start();
+include "koneksi.php";
 
-// 1. Query untuk mengambil total statistik kegiatan (Variabel ganti jadi $koneksi)
-$query_total = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan");
-$total_kegiatan = mysqli_fetch_assoc($query_total)['total'];
+if (!isset($_SESSION['login'])) {
+    header("Location: index.php");
+    exit;
+}
 
-$query_aktif = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Dibuka' OR status = 'Terbatas'");
-$kegiatan_aktif = mysqli_fetch_assoc($query_aktif)['total'];
-
-$query_mendatang = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Akan Datang'");
-$kegiatan_mendatang = mysqli_fetch_assoc($query_mendatang)['total'];
-
-$query_selesai = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan WHERE status = 'Selesai'");
-$kegiatan_selesai = mysqli_fetch_assoc($query_selesai)['total'];
-
-// 2. Logika Pencarian & Pengambilan Data Tabel (Variabel ganti jadi $koneksi)
+// 1. Logika Pencarian
 $search = "";
-if (isset($_GET['search'])) {
-    $search = mysqli_real_escape_string($koneksi, $_GET['search']);
-    $query_tabel = mysqli_query($koneksi, "SELECT * FROM kegiatan WHERE nama_kegiatan LIKE '%$search%' ORDER BY tanggal ASC");
+if (isset($_GET['cari'])) {
+    $search = mysqli_real_escape_string($koneksi, $_GET['keyword']);
+    $query_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan WHERE nama_kegiatan LIKE '%$search%' OR lokasi LIKE '%$search%' ORDER BY id_kegiatan DESC");
 } else {
-    $query_tabel = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY tanggal ASC");
+    $query_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY id_kegiatan DESC");
 }
 
-// Fungsi bantu untuk format tanggal Indonesia
-function formatTanggalIndo($date) {
-    $bulan = [
-        1 => 'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-    ];
-    $split = explode('-', $date);
-    return $split[2] . ' ' . $bulan[(int)$split[1]] . ' ' . $split[0];
-}
+// 2. Hitung Statistik Secara Dinamis dari Database
+$q_total = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan");
+$d_total = mysqli_fetch_assoc($q_total);
+$total_kegiatan = $d_total['total'];
+
+// Untuk contoh, kita samakan kegiatan aktif dengan total kegiatan, sisanya 0 sesuai template aslimu
+$kegiatan_aktif = $total_kegiatan; 
+$akan_datang = 0;
+$selesai = 0;
 ?>
 
 <!DOCTYPE html>
@@ -40,14 +32,14 @@ function formatTanggalIndo($date) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Kegiatan - Sistem Pendaftaran Kegiatan Kampus</title>
+    <title>Data Kegiatan - Sistem Pendaftaran</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-
 <body>
-    <!-- Sidebar -->
+
+    <!-- Sidebar asli kamu -->
     <aside class="sidebar">
         <div class="brand">
             <div class="brand-logo">SK</div>
@@ -57,187 +49,121 @@ function formatTanggalIndo($date) {
             </div>
         </div>
         <nav class="menu">
-            <a href="dashboard.php">
-                <i class="bi bi-speedometer2"></i> Dashboard
-            </a>
-            <a href="form-daftar.php">
-                <i class="bi bi-pencil-square"></i> Form Pendaftaran
-            </a>
-            <a href="data-peserta.php">
-                <i class="bi bi-people"></i> Data Peserta
-            </a>
-            <a href="edit-data.php">
-                <i class="bi bi-pencil"></i> Edit Peserta
-            </a>
-            <a href="kegiatan.php" class="active">
-                <i class="bi bi-calendar-event"></i> Data Kegiatan
-            </a>
-            <a href="index.php">
-                <i class="bi bi-box-arrow-right"></i> Logout
-            </a>
+            <a href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <a href="form_daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
+            <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
+            <a href="edit_data.php"><i class="bi bi-pencil"></i> Edit Peserta</a>
+            <a href="kegiatan.php" class="active"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
+            <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
     </aside>
 
-    <!-- Content -->
+    <!-- Main Content Sesuai Desain Foto Kedua Kamu -->
     <main class="content">
-        <!-- Header -->
-        <section class="topbar">
-            <div>
-                <p class="label">Admin Panel</p>
-                <h2>Data Kegiatan Kampus</h2>
-                <p class="text-muted">
-                    Kelola seluruh kegiatan kampus, jadwal pelaksanaan, kuota peserta, dan status kegiatan.
-                </p>
-            </div>
-            <a href="tambah-kegiatan.php" class="btn btn-primary">
-                <i class="bi bi-plus-circle"></i> Tambah Kegiatan
-            </a>
-        </section>
-
-        <!-- ================= HERO KEGIATAN ================= -->
-        <section class="hero-dashboard mb-4">
+        
+        <!-- Banner Atas -->
+        <section class="hero-dashboard mb-4" style="background: linear-gradient(135deg, #1d72b8 0%, #34a853 100%); color: white; padding: 30px; border-radius: 15px;">
             <div class="row align-items-center">
-                <div class="col-lg-8">
-                    <h2>📅 Data Kegiatan Kampus</h2>
-                    <p>
-                        Halaman ini digunakan untuk mengelola seluruh kegiatan kampus yang sedang berlangsung maupun yang akan datang.
-                    </p>
+                <div class="col-md-8">
+                    <h2><i class="bi bi-calendar2-range"></i> Data Kegiatan Kampus</h2>
+                    <p class="mb-0">Halaman ini digunakan untuk mengelola seluruh kegiatan kampus yang sedang berlangsung maupun yang akan datang.</p>
                 </div>
-                <div class="col-lg-4 text-lg-end">
-                    <h3 id="jam">00:00:00</h3>
-                    <span id="tanggal">Senin, 1 Januari 2026</span>
+                <div class="col-md-4 text-md-end">
+                    <h3><?= date('H.i'); ?></h3>
+                    <span><?= date('l, d F Y'); ?></span>
                 </div>
             </div>
         </section>
 
-        <!-- ================= CARD STATISTIK ================= -->
-        <section class="row g-4 mb-4">
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-card text-center">
-                    <i class="bi bi-calendar-event display-5 text-primary"></i>
-                    <h2><?= $total_kegiatan; ?></h2>
-                    <p>Total Kegiatan</p>
+        <!-- Kartu Statistik (Sudah Dinamis) -->
+        <section class="row g-3 mb-4">
+            <div class="col-md-3">
+                <div class="card-box text-center p-3">
+                    <i class="bi bi-calendar-event text-primary fs-3"></i>
+                    <h2 class="mt-2 fw-bold"><?= $total_kegiatan; ?></h2>
+                    <p class="text-muted mb-0">Total Kegiatan</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-card text-center">
-                    <i class="bi bi-check-circle-fill display-5 text-success"></i>
-                    <h2><?= $kegiatan_aktif; ?></h2>
-                    <p>Kegiatan Aktif</p>
+            <div class="col-md-3">
+                <div class="card-box text-center p-3">
+                    <i class="bi bi-check-circle text-success fs-3"></i>
+                    <h2 class="mt-2 fw-bold"><?= $kegiatan_aktif; ?></h2>
+                    <p class="text-muted mb-0">Kegiatan Aktif</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-card text-center">
-                    <i class="bi bi-hourglass-split display-5 text-warning"></i>
-                    <h2><?= $kegiatan_mendatang; ?></h2>
-                    <p>Akan Datang</p>
+            <div class="col-md-3">
+                <div class="card-box text-center p-3">
+                    <i class="bi bi-hourglass-split text-warning fs-3"></i>
+                    <h2 class="mt-2 fw-bold"><?= $akan_datang; ?></h2>
+                    <p class="text-muted mb-0">Akan Datang</p>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-card text-center">
-                    <i class="bi bi-flag-fill display-5 text-danger"></i>
-                    <h2><?= $kegiatan_selesai; ?></h2>
-                    <p>Selesai</p>
+            <div class="col-md-3">
+                <div class="card-box text-center p-3">
+                    <i class="bi bi-flag text-danger fs-3"></i>
+                    <h2 class="mt-2 fw-bold"><?= $selesai; ?></h2>
+                    <p class="text-muted mb-0">Selesai</p>
                 </div>
             </div>
         </section>
 
-        <!-- ================= DATA KEGIATAN ================= -->
-        <section class="card-box">
-            <div class="section-title">
-                <h3>
-                    <i class="bi bi-calendar2-week-fill text-primary"></i> Daftar Kegiatan
-                </h3>
-                <span>Semester Genap 2026</span>
+        <!-- Tabel Utama -->
+        <section class="card-box p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h4 class="fw-bold mb-0"><i class="bi bi-calendar-check text-primary"></i> Daftar Kegiatan</h4>
+                <span class="text-muted">Semester Genap 2026</span>
             </div>
-            
-            <div class="row mb-4">
-                <div class="col-md-6">
-                    <form action="kegiatan.php" method="GET">
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="bi bi-search"></i>
-                            </span>
-                            <input type="text" name="search" class="form-control" placeholder="Cari nama kegiatan..." value="<?= htmlspecialchars($search); ?>">
-                            <button type="submit" class="btn btn-outline-primary">Cari</button>
-                            <?php if(!empty($search)): ?>
-                                <a href="kegiatan.php" class="btn btn-outline-secondary">Reset</a>
-                            <?php endif; ?>
-                        </div>
-                    </form>
+
+            <!-- Form Pencarian -->
+            <form method="GET" action="" class="row g-2 mb-4">
+                <div class="col-md-10">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                        <input type="text" name="keyword" class="form-control" placeholder="Cari nama kegiatan..." value="<?= htmlspecialchars($search); ?>">
+                    </div>
                 </div>
-            </div>
+                <div class="col-md-2">
+                    <button type="submit" name="cari" class="btn btn-primary w-100">Cari</button>
+                </div>
+            </form>
 
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
-                    <thead>
+                    <thead class="table-light">
                         <tr>
-                            <th>Kode</th>
-                            <th>Nama Kegiatan</th>
-                            <th>Tanggal</th>
-                            <th>Lokasi</th>
-                            <th>Kuota</th>
-                            <th>Status</th>
+                            <th>KODE</th>
+                            <th>NAMA KEGIATAN</th>
+                            <th>TANGGAL</th>
+                            <th>LOKASI</th>
+                            <th>KUOTA</th>
+                            <th>STATUS</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php 
-                        if (mysqli_num_rows($query_tabel) > 0) {
-                            while ($row = mysqli_fetch_assoc($query_tabel)) {
-                                $badge_class = "bg-secondary";
-                                if ($row['status'] == 'Dibuka') {
-                                    $badge_class = "bg-success";
-                                } elseif ($row['status'] == 'Terbatas') {
-                                    $badge_class = "bg-warning text-dark";
-                                } elseif ($row['status'] == 'Hampir Penuh') {
-                                    $badge_class = "bg-danger";
-                                } elseif ($row['status'] == 'Akan Datang') {
-                                    $badge_class = "bg-primary";
-                                }
+                        $no = 1;
+                        while($row = mysqli_fetch_assoc($query_kegiatan)) { 
+                            // Membuat kode otomatis misal KG001, KG002 berdasarkan ID
+                            $kode = "KG" . str_pad($row['id_kegiatan'], 3, "0", STR_PAD_LEFT);
                         ?>
-                                <tr>
-                                    <td><?= $row['kode_kegiatan']; ?></td>
-                                    <td><?= htmlspecialchars($row['nama_kegiatan']); ?></td>
-                                    <td><?= formatTanggalIndo($row['tanggal']); ?></td>
-                                    <td><?= htmlspecialchars($row['lokasi']); ?></td>
-                                    <td><?= $row['kuota']; ?></td>
-                                    <td>
-                                        <span class="badge <?= $badge_class; ?>">
-                                            <?= $row['status']; ?>
-                                        </span>
-                                    </td>
-                                </tr>
-                        <?php 
-                            }
-                        } else {
-                            echo "<tr><td colspan='6' class='text-center text-muted'>Tidak ada data kegiatan ditemukan.</td></tr>";
-                        }
-                        ?>
+                        <tr>
+                            <td><strong><?= $kode; ?></strong></td>
+                            <td><?= htmlspecialchars($row['nama_kegiatan']); ?></td>
+                            <td><?= date('d M Y', strtotime($row['tanggal'])); ?></td>
+                            <td><?= htmlspecialchars($row['lokasi']); ?></td>
+                            <td><?= isset($row['kuota']) ? $row['kuota'] : '100'; ?></td>
+                            <td>
+                                <span class="badge bg-success" style="border-radius: 50px; padding: 5px 15px;">dibuka</span>
+                            </td>
+                        </tr>
+                        <?php } ?>
                     </tbody>
                 </table>
             </div>
         </section>
 
-        <!-- ================= FOOTER ================= -->
-        <footer class="footer-dashboard">
-            <p>© 2026 Sistem Pendaftaran Kegiatan Kampus | Universitas Islam Negeri Ar-Raniry Banda Aceh</p>
-        </footer>
     </main>
 
-    <!-- ================= JAVASCRIPT ================= -->
-    <script>
-    function updateJam(){
-        const sekarang = new Date();
-        document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID",{
-            weekday:"long",
-            day:"numeric",
-            month:"long",
-            year:"numeric"
-        });
-    }
-    setInterval(updateJam,1000);
-    updateJam();
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

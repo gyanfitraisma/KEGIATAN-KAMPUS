@@ -1,14 +1,12 @@
 <?php
-// 1. KONEKSI KE DATABASE
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db   = "db_kegiatan_kampus";
+// 1. KONEKSI KE DATABASE & PROTEKSI SESSION
+session_start();
+include "koneksi.php";
 
-$koneksi = mysqli_connect($host, $user, $pass, $db);
-
-if (!$koneksi) {
-    die("Koneksi database gagal. Tolong pastikan XAMPP (Apache & MySQL) sudah START ya Rida.");
+// Cek apakah admin sudah login, jika belum kembalikan ke login page
+if (!isset($_SESSION['login'])) {
+    header("Location: index.php");
+    exit;
 }
 
 // 2. AMBIL ID PESERTA (Dinamis dari URL, jika tidak ada, cari data pertama)
@@ -30,16 +28,15 @@ $data_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY nama_ke
 // 3. PROSES UPDATE DATA
 $pesan = "";
 if (isset($_POST['update'])) {
-    $nim                = $_POST['nim'];
-    $nama_lengkap       = $_POST['nama_lengkap'];
-    $program_studi      = $_POST['program_studi'];
-    $semester           = $_POST['semester'];
-    $jenis_kelamin      = $_POST['jenis_kelamin'];
-    $no_hp              = $_POST['no_hp'];
-    $email              = $_POST['email'];
-    $alamat             = $_POST['alamat'];
-    $id_kegiatan        = $_POST['id_kegiatan']; // Mengambil nilai kegiatan baru
-    $status_pendaftaran = $_POST['status_pendaftaran'];
+    $nim                = mysqli_real_escape_string($koneksi, $_POST['nim']);
+    $nama_lengkap       = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
+    $program_studi      = mysqli_real_escape_string($koneksi, $_POST['program_studi']);
+    $semester           = mysqli_real_escape_string($koneksi, $_POST['semester']);
+    $no_hp              = mysqli_real_escape_string($koneksi, $_POST['no_hp']);
+    $email              = mysqli_real_escape_string($koneksi, $_POST['email']);
+    $alamat             = mysqli_real_escape_string($koneksi, $_POST['alamat']);
+    $id_kegiatan        = mysqli_real_escape_string($koneksi, $_POST['id_kegiatan']);
+    $status_pendaftaran = mysqli_real_escape_string($koneksi, $_POST['status_pendaftaran']);
 
     // Update data berdasarkan id_peserta yang aktif
     $query_update = "UPDATE peserta SET 
@@ -47,7 +44,6 @@ if (isset($_POST['update'])) {
                     nama_lengkap = '$nama_lengkap', 
                     program_studi = '$program_studi', 
                     semester = '$semester', 
-                    jenis_kelamin = '$jenis_kelamin', 
                     no_hp = '$no_hp', 
                     email = '$email', 
                     alamat = '$alamat', 
@@ -60,7 +56,7 @@ if (isset($_POST['update'])) {
         header("Location: edit_data.php?id=$id_peserta&status=sukses");
         exit();
     } else {
-        $pesan = "<div class='alert alert-danger'>Aduh eror Rida, ini pesan erornya: " . mysqli_error($koneksi) . "</div>";
+        $pesan = "<div class='alert alert-danger'>Gagal memperbarui data: " . mysqli_error($koneksi) . "</div>";
     }
 }
 ?>
@@ -92,7 +88,8 @@ if (isset($_POST['update'])) {
             <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
             <a href="edit_data.php" class="active"><i class="bi bi-pencil-square"></i> Edit Peserta</a>
             <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
-            <a href="index.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
+            <!-- Perbaikan Link Logout di bawah ini -->
+            <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
     </aside>
 
@@ -137,7 +134,7 @@ if (isset($_POST['update'])) {
             }
             ?>
 
-            <form id="formEdit" class="row g-4" method="POST" action="" enctype="multipart/form-data">
+            <form id="formEdit" class="row g-4" method="POST" action="">
                 
                 <!-- Nama Lengkap -->
                 <div class="col-md-6">
@@ -163,7 +160,7 @@ if (isset($_POST['update'])) {
                     <select name="semester" class="form-select">
                         <?php 
                         for ($i = 1; $i <= 8; $i++) {
-                            $selected = (($data['semester'] ?? 3) == $i) ? 'selected' : '';
+                            $selected = (($data['semester'] ?? 1) == $i) ? 'selected' : '';
                             echo "<option value='$i' $selected>$i</option>";
                         }
                         ?>
@@ -182,7 +179,7 @@ if (isset($_POST['update'])) {
                     <input type="email" name="email" class="form-control" value="<?php echo htmlspecialchars($data['email'] ?? ''); ?>">
                 </div>
 
-                <!-- Kegiatan (SUDAH AKTIF DAN AMBIL DARI DATABASE) -->
+                <!-- Kegiatan -->
                 <div class="col-md-6">
                     <label class="form-label"><i class="bi bi-calendar-event-fill text-primary"></i> Kegiatan</label>
                     <select name="id_kegiatan" class="form-select">
@@ -210,27 +207,11 @@ if (isset($_POST['update'])) {
                     <textarea name="alamat" class="form-control" rows="4"><?php echo htmlspecialchars($data['alamat'] ?? ''); ?></textarea>
                 </div>
 
-                <!-- Upload Foto -->
-                <div class="col-md-6">
-                    <label class="form-label"><i class="bi bi-image-fill text-primary"></i> Foto Peserta</label>
-                    <input type="file" name="foto" class="form-control" accept="image/*">
-                </div>
-
-                <!-- Jenis Kelamin -->
-                <div class="col-md-6">
-                    <label class="form-label"><i class="bi bi-gender-ambiguous text-primary"></i> Jenis Kelamin</label>
-                    <select name="jenis_kelamin" class="form-select">
-                        <option value="Laki-laki" <?php echo (($data['jenis_kelamin'] ?? '') == 'Laki-laki') ? 'selected' : ''; ?>>Laki-laki</option>
-                        <option value="Perempuan" <?php echo (($data['jenis_kelamin'] ?? '') == 'Perempuan') ? 'selected' : ''; ?>>Perempuan</option>
-                    </select>
-                </div>
-
                 <!-- Tombol -->
                 <div class="col-12 mt-3">
                     <button type="submit" name="update" class="btn btn-primary me-2">
                         <i class="bi bi-save-fill"></i> Update Data
                     </button>
-                    <!-- Menggunakan tipe button + fungsi JS kosongkanForm -->
                     <button type="button" onclick="kosongkanForm()" class="btn btn-outline-secondary me-2">
                         <i class="bi bi-arrow-clockwise"></i> Reset
                     </button>
@@ -247,7 +228,6 @@ if (isset($_POST['update'])) {
         </footer>
     </main>
 
-    <!-- Script Jam & Fungsi Mengosongkan Form -->
     <script>
     function updateJam(){
         const sekarang = new Date();
@@ -259,16 +239,10 @@ if (isset($_POST['update'])) {
     setInterval(updateJam,1000);
     updateJam();
 
-    // JAVASCRIPT UNTUK MENGOSONGKAN FORM TOTAL
     function kosongkanForm() {
-        // Ambil elemen form berdasarkan ID
         const form = document.getElementById("formEdit");
-        
-        // Bersihkan seluruh tipe input teks, email, file, dan textarea
-        const inputs = form.querySelectorAll('input[type="text"], input[type="email"], input[type="file"], textarea');
+        const inputs = form.querySelectorAll('input[type="text"], input[type="email"], textarea');
         inputs.forEach(input => input.value = '');
-
-        // Kembalikan semua elemen dropdown select ke baris pilihan pertama (paling atas)
         const selects = form.querySelectorAll('select');
         selects.forEach(select => select.selectedIndex = 0);
     }

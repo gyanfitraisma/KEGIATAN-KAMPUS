@@ -10,6 +10,28 @@ if (!isset($_SESSION['login'])) {
 
 // Ambil nama lengkap dari session
 $nama = $_SESSION['nama_lengkap'];
+
+// ==================================================
+// LOGIKA STATISTIK DINAMIS DARI DATABASE
+// ==================================================
+// 1. Hitung Total Peserta Terdaftar
+$q_peserta = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM peserta");
+$d_peserta = mysqli_fetch_assoc($q_peserta);
+$total_peserta = $d_peserta['total'];
+
+// 2. Hitung Total Kegiatan Kampus
+$q_kegiatan = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan");
+$d_kegiatan = mysqli_fetch_assoc($q_kegiatan);
+$total_kegiatan = $d_kegiatan['total'];
+
+// 3. Set Total Kuota Maksimal Aplikasi (Misal diset global: 300)
+$kuota_maksimal = 300;
+$kuota_tersedia = $kuota_maksimal - $total_peserta;
+if($kuota_tersedia < 0) $kuota_tersedia = 0;
+
+// 4. Hitung Persentase Progress Bar
+$persentase = ($total_peserta > 0) ? round(($total_peserta / $kuota_maksimal) * 100) : 0;
+if($persentase > 100) $persentase = 100;
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +59,6 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
         </div>
 
-        <!-- LINK SIDEBAR SUDAH DIUBAH JADI UNDERSCORE -->
         <nav class="menu">
 
             <a href="dashboard.php" class="active">
@@ -79,21 +100,15 @@ $nama = $_SESSION['nama_lengkap'];
         <section class="topbar">
 
             <div>
-
                 <p class="label">Admin Panel</p>
-
                 <h2>Sistem Pendaftaran Kegiatan Kampus</h2>
-
                 <p class="text-muted">
                     Kelola seluruh kegiatan kampus, data peserta,
                     dan proses pendaftaran dengan mudah.
                 </p>
-
             </div>
 
             <div class="d-flex gap-2">
-
-                <!-- LINK TOMBOL SUDAH DIUBAH JADI UNDERSCORE -->
                 <a href="form_daftar.php" class="btn btn-primary">
                     <i class="bi bi-plus-circle"></i>
                     Daftar Peserta
@@ -103,7 +118,6 @@ $nama = $_SESSION['nama_lengkap'];
                     <i class="bi bi-calendar-event"></i>
                     Data Kegiatan
                 </a>
-
             </div>
 
         </section>
@@ -113,69 +127,53 @@ $nama = $_SESSION['nama_lengkap'];
             <div class="row align-items-center">
 
                 <div class="col-lg-8">
-
                     <h2 id="sapaan">
                      Selamat Datang, <?php echo htmlspecialchars($nama); ?> 👋
                     </h2>
-
                     <p>
                         Kelola seluruh kegiatan kampus dengan lebih mudah.
                         Pantau jumlah peserta, kegiatan aktif,
                         serta aktivitas terbaru secara real-time.
                     </p>
-
                 </div>
 
                 <div class="col-lg-4 text-lg-end">
-
                     <div class="hero-time">
-
-                        <h3 id="jam">
-                            00:00:00
-                        </h3>
-
-                        <span id="tanggal">
-                            Senin, 1 Januari 2026
-                        </span>
-
+                        <h3 id="jam">00:00:00</h3>
+                        <span id="tanggal">Senin, 1 Januari 2026</span>
                     </div>
-
                 </div>
 
             </div>
 
         </section>
 
+        <!-- PROGRESS BAR DINAMIS -->
         <section class="card-box mb-4">
 
             <div class="d-flex justify-content-between align-items-center mb-3">
-
                 <h4 class="mb-0">
                     <i class="bi bi-graph-up-arrow text-success"></i>
                     Progress Pendaftaran
                 </h4>
-
                 <span class="badge bg-success fs-6">
-                    79%
+                    <?= $persentase; ?>%
                 </span>
-
             </div>
 
             <p class="mb-2">
                 Kuota peserta telah terisi sebanyak
-                <strong>248/312 peserta</strong>
+                <strong><?= $total_peserta; ?> / <?= $kuota_maksimal; ?> peserta</strong>
             </p>
 
             <div class="progress progress-modern">
-                <div
-                    class="progress-bar progress-bar-striped progress-bar-animated bg-success"
-                    style="width:79%">
-                    79%
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: <?= $persentase; ?>%">
+                    <?= $persentase; ?>%
                 </div>
             </div>
         </section>
 
-        <!-- LINK QUICK CARD SUDAH DIUBAH JADI UNDERSCORE -->
+        <!-- QUICK CARD MENU -->
         <section class="row g-3 mb-4">
             <div class="col-md-3">
                 <a href="form_daftar.php" class="quick-card text-decoration-none">
@@ -210,37 +208,30 @@ $nama = $_SESSION['nama_lengkap'];
             </div>
         </section>
 
+        <!-- COUNTER STATISTIK DINAMIS -->
         <section class="row g-4 mb-4">
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="stat-card text-center">
                     <i class="bi bi-calendar-check display-5"></i>
-                    <h2 class="counter">8</h2>
-                    <p>Kegiatan Aktif</p>
+                    <h2 class="counter"><?= $total_kegiatan; ?></h2>
+                    <p>Total Kegiatan Kampus</p>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="stat-card text-center">
                     <i class="bi bi-people-fill display-5"></i>
-                    <h2 class="counter">248</h2>
-                    <p>Total Peserta</p>
+                    <h2 class="counter"><?= $total_peserta; ?></h2>
+                    <p>Total Peserta Terdaftar</p>
                 </div>
             </div>
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
                 <div class="stat-card text-center">
                     <i class="bi bi-person-check-fill display-5"></i>
-                    <h2 class="counter">64</h2>
-                    <p>Kuota Tersedia</p>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6">
-                <div class="stat-card text-center">
-                    <i class="bi bi-award-fill display-5"></i>
-                    <h2 class="counter">15</h2>
-                    <p>Kegiatan Selesai</p>
+                    <h2 class="counter"><?= $kuota_tersedia; ?></h2>
+                    <p>Sisa Kuota Tersedia</p>
                 </div>
             </div>
 
