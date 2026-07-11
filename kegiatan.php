@@ -68,10 +68,6 @@ $selesai = 0;
                     <h2><i class="bi bi-calendar2-range"></i> Data Kegiatan Kampus</h2>
                     <p class="mb-0">Halaman ini digunakan untuk mengelola seluruh kegiatan kampus yang sedang berlangsung maupun yang akan datang.</p>
                 </div>
-                <div class="col-md-4 text-md-end">
-                    <h3><?= date('H.i'); ?></h3>
-                    <span><?= date('l, d F Y'); ?></span>
-                </div>
             </div>
         </section>
 
