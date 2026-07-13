@@ -97,7 +97,7 @@ $data_kegiatan = mysqli_query(
 <section class="card-box mb-4">
 <div class="section-title">
     <h3>Daftar Peserta</h3>
-    <span>Change berdasarkan kegiatan</span>
+    <span>Filter berdasarkan kegiatan</span>
 </div>
 
 <form method="get" class="row g-3 mb-3">
@@ -128,7 +128,7 @@ $data_kegiatan = mysqli_query(
 
     <div class="col-md-2">
         <button type="submit" class="btn btn-success w-100">
-            <i class="bi bi-funnel"></i> Change
+            <i class="bi bi-funnel"></i> Filter
         </button>
     </div>
 </form>
