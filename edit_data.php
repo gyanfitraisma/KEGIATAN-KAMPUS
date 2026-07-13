@@ -86,7 +86,6 @@ if (isset($_POST['update'])) {
             <a href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
             <a href="form_daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
             <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
-            <a href="edit_data.php" class="active"><i class="bi bi-pencil-square"></i> Edit Peserta</a>
             <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
             <!-- Perbaikan Link Logout di bawah ini -->
             <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
