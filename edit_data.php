@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-// 2. AMBIL ID PESERTA (Dinamis dari URL, jika tidak ada, cari data pertama)
+// 2. AMBIL ID PESERTAA (Dinamis dari URL, jika tidak ada, cari data pertama)
 if (isset($_GET['id'])) {
     $id_peserta = $_GET['id'];
 } else {
@@ -22,7 +22,7 @@ $query = "SELECT * FROM peserta WHERE id_peserta = '$id_peserta'";
 $result = mysqli_query($koneksi, $query);
 $data = mysqli_fetch_assoc($result);
 
-// Ambil daftar kegiatan dari database untuk pilihan dropdown menu kegiatan
+// Mengambil daftar kegiatan dari database untuk pilihan dropdown menu kegiatan
 $data_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
 
 // 3. PROSES UPDATE DATA
