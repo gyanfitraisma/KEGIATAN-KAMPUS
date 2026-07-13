@@ -107,9 +107,10 @@ $data_kegiatan = mysqli_query(
     <div class="col-md-5">
         <input 
             type="text"
+            id="inputCari"
             name="keyword"
             class="form-control"
-            placeholder="Cari nama atau NIM"
+            placeholder="Cari nama atau NIM..."
             value="<?= htmlspecialchars($keyword); ?>"
         >
     </div>
@@ -148,7 +149,7 @@ $data_kegiatan = mysqli_query(
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="tabelPeserta">
         <?php
         $no = 1;
         while($peserta = mysqli_fetch_assoc($data_peserta)){
@@ -172,7 +173,6 @@ $data_kegiatan = mysqli_query(
                     <a href="edit_data.php?id=<?= $peserta['id_peserta']; ?>" class="btn btn-sm btn-warning">
                         <i class="bi bi-pencil"></i> Edit
                     </a>
-                    <!-- BAGIAN INI SUDAH DIPERBAIKI MENJADI DINAMIS SESUAI ID DATA -->
                     <a href="hapus_peserta.php?id=<?= $peserta['id_peserta']; ?>" 
                        onclick="return confirm('Yakin ingin menghapus data milik <?= htmlspecialchars($peserta['nama_lengkap']); ?>?')" 
                        class="btn btn-sm btn-danger">
@@ -186,6 +186,33 @@ $data_kegiatan = mysqli_query(
 </div>
 </section>
 </main>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- SCRIPT LIVE SEARCH JAVASCRIPT -->
+<script>
+document.getElementById('inputCari').addEventListener('keyup', function() {
+    let kataKunci = this.value.toLowerCase();
+    let barisTabel = document.querySelectorAll('#tabelPeserta tr');
+
+    barisTabel.forEach(function(baris) {
+        // Mengambil teks dari kolom NIM (indeks 1) dan kolom Nama (indeks 2)
+        let kolomNim = baris.getElementsByTagName('td')[1];
+        let kolomNama = baris.getElementsByTagName('td')[2];
+        
+        if (kolomNim && kolomNama) {
+            let teksNim = kolomNim.textContent || kolomNim.innerText;
+            let teksNama = kolomNama.textContent || kolomNama.innerText;
+            
+            // Mengecek apakah kata kunci cocok dengan nama ATAU NIM
+            if (teksNama.toLowerCase().indexOf(kataKunci) > -1 || teksNim.toLowerCase().indexOf(kataKunci) > -1) {
+                baris.style.display = "";
+            } else {
+                baris.style.display = "none";
+            }
+        }
+    });
+});
+</script>
 </body>
 </html>
