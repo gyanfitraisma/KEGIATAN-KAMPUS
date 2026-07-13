@@ -21,7 +21,7 @@ if (isset($_POST['username']) && isset($_POST['password'])) {
         // Mengambil baris data hasil query dan mengonversinya ke dalam bentuk array asosiatif
         $data = mysqli_fetch_assoc($query);
 
-        // LOGIKA MULTI-PASSWORD:
+        //LOGIKA MULTI-PASSWORD:
         // Cek apakah password cocok dengan teks biasa (untuk data default db)
         // ATAU cocok dengan password terenkripsi (untuk user baru hasil register)
         // Melakukan validasi ganda: mencocokkan teks langsung ATAU mencocokkan via hash enkripsi password
