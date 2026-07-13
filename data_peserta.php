@@ -189,7 +189,7 @@ $data_kegiatan = mysqli_query(
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
- <!-- SCRIPT LIVE SEARCH JAVASCRIPT -->
+ @<!-- SCRIPT LIVE SEARCH JAVASCRIPT -->
 <script>
 document.getElementById('inputCari').addEventListener('keyup', function() {
     let kataKunci = this.value.toLowerCase();
