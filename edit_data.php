@@ -9,7 +9,7 @@ if (!isset($_SESSION['login'])) {
     exit;
 }
 
-// 2. AMBIL ID PESERTA (Dinamis dari URL, jika tidak ada, cari data pertama)
+// 2. AMBIL ID PESERTAA (Dinamis dari URL, jika tidak ada, cari data pertama)
 if (isset($_GET['id'])) {
     $id_peserta = $_GET['id'];
 } else {
