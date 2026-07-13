@@ -49,7 +49,7 @@ $selesai = 0;
 <head>
     <!-- Menetapkan sistem pengodean karakter universal dokumen menggunakan UTF-8 -->
     <meta charset="UTF-8">
-    <!-- Mengonfigurasi tampilan agar tata letak berskala responsif di semua resolusi layar -->
+    <!-- Mengonfigurasi tampilan agar tata letak berskala responsif di semua resolutions layar -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Menentukan judul halaman resmi pada tab browser pengguna -->
     <title>Data Kegiatan - Sistem Pendaftaran</title>
@@ -105,6 +105,13 @@ $selesai = 0;
                     <h2><i class="bi bi-calendar2-range"></i> Data Kegiatan Kampus</h2>
                     <!-- Deskripsi ringkas mengenai hak guna dan fungsi dari modul halaman saat ini -->
                     <p class="mb-0">Halaman ini digunakan untuk mengelola seluruh kegiatan kampus yang sedang berlangsung maupun yang akan datang.</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <!-- Penampung Jam dan Tanggal Digital (Akan di-update otomatis oleh JavaScript) -->
+                    <div class="hero-time">
+                        <h3 id="jam">00:00:00</h3>
+                        <span id="tanggal">Senin, 1 Januari 2026</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -234,5 +241,17 @@ $selesai = 0;
 
     <!-- Memuat bundle JavaScript resmi milik Bootstrap 5 untuk mendukung interaktivitas komponen -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+    function updateJam() {
+        const sekarang = new Date();
+        document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
+        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID", {
+            weekday: "long", day: "numeric", month: "long", year: "numeric"
+        });
+    }
+    setInterval(updateJam, 1000);
+    updateJam();
+    </script>
 </body>
 </html>
