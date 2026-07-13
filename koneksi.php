@@ -1,7 +1,7 @@
 <?php
 // Menentukan nama host server database, umumnya menggunakan "localhost" untuk server lokal
 $host = "localhost";
-// Menentukan username default untuk hak akses masuk ke MySQL, standarnya adalah "root"
+//Menentukan username default untuk hak akses masuk ke MySQL, standarnya adalah "root"
 $user = "root";
 // Menentukan kata sandi (password) MySQL, dikosongkan secara default untuk server lokal XAMPP
 $password = "";

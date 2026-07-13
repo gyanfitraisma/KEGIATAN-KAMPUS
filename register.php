@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $nama_lengkap = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
     // Membersihkan kata kunci identitas akun (username) sebelum masuk ke database
     $username     = mysqli_real_escape_string($koneksi, $_POST['username']);
-    // Membersihkan input data surat elektronik (email)
+    //Membersihkan input data surat elektronik (email)
     $email        = mysqli_real_escape_string($koneksi, $_POST['email']);
     // Membersihkan nomor handphone pendaftar untuk validasi keamanan database
     $no_hp        = mysqli_real_escape_string($koneksi, $_POST['no_hp']);

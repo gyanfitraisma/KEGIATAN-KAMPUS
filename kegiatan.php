@@ -26,7 +26,7 @@ if (isset($_GET['cari'])) {
     $query_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY id_kegiatan DESC");
 }
 
-// 2. Hitung Statistik Secara Dinamis dari Database
+// 2.Hitung Statistik Secara Dinamis dari Database
 // Menjalankan query SQL untuk menghitung jumlah total baris/record pada tabel kegiatan
 $q_total = mysqli_query($koneksi, "SELECT COUNT(*) as total FROM kegiatan");
 // Mengambil hasil perhitungan query ke dalam bentuk array asosiatif
