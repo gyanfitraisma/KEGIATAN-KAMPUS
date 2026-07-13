@@ -74,9 +74,6 @@ $data_kegiatan = mysqli_query(
         <a href="data_peserta.php" class="active">
             <i class="bi bi-people"></i> Data Peserta
         </a>
-        <a href="edit_data.php">
-            <i class="bi bi-pencil"></i> Edit Peserta
-        </a>
         <a href="kegiatan.php">
             <i class="bi bi-calendar-event"></i> Data Kegiatan
         </a>
@@ -189,7 +186,7 @@ $data_kegiatan = mysqli_query(
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
- @<!-- SCRIPT LIVE SEARCH JAVASCRIPT -->
+<!-- SCRIPT LIVE SEARCH JAVASCRIPT -->
 <script>
 document.getElementById('inputCari').addEventListener('keyup', function() {
     let kataKunci = this.value.toLowerCase();
