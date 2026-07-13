@@ -76,11 +76,6 @@ if($persentase > 100) $persentase = 100;
                 Data Peserta
             </a>
 
-            <a href="edit_data.php">
-                <i class="bi bi-pencil"></i>
-                Edit Peserta
-            </a>
-
             <a href="kegiatan.php">
                 <i class="bi bi-calendar-event"></i>
                 Data Kegiatan
@@ -200,7 +195,7 @@ if($persentase > 100) $persentase = 100;
             </div>
 
             <div class="col-md-3">
-                <a href="edit_data.php" class="quick-card text-decoration-none">
+                <a href="data_peserta.php" class="quick-card text-decoration-none">
                     <i class="bi bi-pencil-square"></i>
                     <h5>Edit Data</h5>
                     <p>Ubah data peserta</p>
