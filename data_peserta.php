@@ -128,7 +128,7 @@ $data_kegiatan = mysqli_query(
 
     <div class="col-md-2">
         <button type="submit" class="btn btn-success w-100">
-            <i class="bi bi-funnel"></i> Filter
+            <i class="bi bi-funnel"></i> Change
         </button>
     </div>
 </form>
