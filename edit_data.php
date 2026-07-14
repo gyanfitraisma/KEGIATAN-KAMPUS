@@ -77,7 +77,7 @@ if (isset($_POST['update'])) {
     <aside class="sidebar">
         <div class="brand">
         <div class="brand-logo" style="background: transparent; display: flex; align-items: center; justify-content: center;">
-         <img src="assets/logo.jpeg" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+         <img src="assets/logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
     </div>
     <div>
         <h1>Sistem Kampus</h1>
