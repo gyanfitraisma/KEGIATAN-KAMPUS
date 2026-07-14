@@ -116,7 +116,7 @@ $data_kegiatan = mysqli_query(
     <main class="content">
         <section class="topbar">
             <div>
-                <p class="label">Admin Panel</p>
+                <p class="label">Data Peserta</p>
                 <h2>Sistem Pendaftaran Kegiatan Kampus</h2>
                 <p class="text-muted">
                     Kelola kegiatan, pendaftaran peserta, perubahan data, dan rekap peserta.
