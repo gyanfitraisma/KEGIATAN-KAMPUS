@@ -76,12 +76,14 @@ if (isset($_POST['update'])) {
     <!-- Sidebar -->
     <aside class="sidebar">
         <div class="brand">
-            <div class="brand-logo">SK</div>
-            <div>
-                <h1>Sistem Kampus</h1>
-                <p>Pendaftaran Kegiatan</p>
-            </div>
-        </div>
+        <div class="brand-logo" style="background: transparent; display: flex; align-items: center; justify-content: center;">
+         <img src="assets/logo.png" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
+    </div>
+    <div>
+        <h1>Sistem Kampus</h1>
+        <p>Pendaftaran Kegiatan</p>
+    </div>
+</div>
         <nav class="menu">
             <a href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
             <a href="form_daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
