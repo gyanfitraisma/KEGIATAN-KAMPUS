@@ -62,7 +62,6 @@ $selesai = 0;
 </head>
 <body>
 
-    <!-- Sidebar asli kamu -->
     <!-- Elemen pembungkus menu navigasi utama di bagian samping halaman -->
     <aside class="sidebar">
         <!-- Area identitas dan penjenamaan aplikasi -->
@@ -91,9 +90,19 @@ $selesai = 0;
         </nav>
     </aside>
 
-    <!-- Main Content Sesuai Desain Foto Kedua Kamu -->
     <!-- Area utama pembungkus seluruh informasi dan tabel dinamis pada halaman ini -->
     <main class="content">
+        
+        <!-- Topbar Identitas Halaman -->
+        <section class="topbar mb-3">
+            <div>
+                <p class="label">Data Kegiatan</p>
+                <h2>Daftar & Jadwal Kegiatan Kampus</h2>
+                <p class="text-muted">
+                    Atur jadwal agenda, kelola kuota pendaftaran, lokasi, serta status operasional kegiatan mahasiswa.
+                </p>
+            </div>
+        </section>
         
         <!-- Banner Atas -->
         <!-- Bagian kartu hero penyambutan dengan gradasi warna menarik dan sudut melengkung -->
@@ -246,7 +255,7 @@ $selesai = 0;
     function updateJam() {
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID", {
+        document.getElementById("tanggal").innerHTML = Clinical = sekarang.toLocaleDateString("id-ID", {
             weekday: "long", day: "numeric", month: "long", year: "numeric"
         });
     }
