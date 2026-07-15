@@ -66,7 +66,6 @@ if (isset($_POST['simpan'])) {
             <a href="dashboard.php"><i class="bi bi-speedometer2"></i> Dashboard</a>
             <a href="form_daftar.php" class="active"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
             <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
-            <a href="edit_data.php"><i class="bi bi-pencil"></i> Edit Peserta</a>
             <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
             <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
