@@ -49,9 +49,15 @@ CREATE TABLE `kegiatan` (
 --
 
 INSERT INTO `kegiatan` (`id_kegiatan`, `kode_kegiatan`, `nama_kegiatan`, `kategori`, `tanggal`, `waktu_mulai`, `waktu_selesai`, `lokasi`, `kuota`, `deskripsi`, `status`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 'KG001', 'Seminar Karier Digital', 'Seminar', '2026-07-12', '09:00:00', '12:00:00', 'Aula Kampus', 100, 'Seminar persiapan karier digital mahasiswa.', 'dibuka', 1, '2026-06-29 08:40:17', '2026-06-29 08:40:17'),
+(1, 'KG001', 'Seminar Karier Digital', 'Seminar', '2026-07-12', '09:00:00', '12:00:00', 'Aula Kampus', 100, 'Seminar persiapan karier digital mahasiswa.', 'selesai', 1, '2026-06-29 08:40:17', '2026-06-29 08:40:17'),
 (2, 'KG002', 'Workshop UI/UX', 'Workshop', '2026-07-18', '13:00:00', '16:00:00', 'Lab Multimedia', 40, 'Pelatihan dasar desain antarmuka aplikasi.', 'dibuka', 1, '2026-06-29 08:40:17', '2026-06-29 08:40:17'),
-(3, 'KG003', 'Lomba Web Design', 'Lomba', '2026-07-25', '08:00:00', '15:00:00', 'Gedung Rektorat', 60, 'Kompetisi desain website antar mahasiswa.', 'dibuka', 2, '2026-06-29 08:40:17', '2026-06-29 08:40:17');
+(3, 'KG003', 'Lomba Web Design', 'Lomba', '2026-07-25', '08:00:00', '15:00:00', 'Gedung Rektorat', 60, 'Kompetisi desain website antar mahasiswa.', 'dibuka', 2, '2026-06-29 08:40:17', '2026-06-29 08:40:17'),
+(4, 'KG004', 'Hackathon / Coding Competition 2026', 'Lomba', '2026-08-05', '08:00:00', '17:00:00', 'Aula Gedung IT', 50, 'Kompetisi coding intensif untuk mahasiswa.', 'dibuka', 1, '2026-07-15 00:00:00', '2026-07-15 00:00:00'),
+(5, 'KG005', 'Bootcamp Dasar Pemrograman Python & PHP', 'Pelatihan', '2026-08-12', '09:00:00', '15:00:00', 'Lab Komputer 3', 30, 'Pelatihan dasar logika pemrograman.', 'dibuka', 1, '2026-07-15 00:00:00', '2026-07-15 00:00:00'),
+(6, 'KG006', 'Workshop Motion Graphic & Video Mobile', 'Workshop', '2026-07-28', '13:00:00', '16:00:00', 'Lab Multimedia', 40, 'Cara membuat animasi bergerak menggunakan smartphone.', 'dibuka', 1, '2026-07-15 00:00:00', '2026-07-15 00:00:00'),
+(7, 'KG007', 'Seminar Menguasai Teknologi Wireless Modern', 'Seminar', '2026-07-20', '09:00:00', '12:00:00', 'Ruang Seminar Utama', 80, 'Pembahasan teknologi frekuensi wireless terbaru.', 'dibuka', 2, '2026-07-15 00:00:00', '2026-07-15 00:00:00'),
+(8, 'KG008', 'TOEFL Prediction Test & Strategy Workshop', 'Workshop', '2026-07-10', '08:00:00', '12:00:00', 'Pusat Bahasa Kampus', 150, 'Tips lulus ujian TOEFL dengan skor tinggi.', 'selesai', 2, '2026-07-15 00:00:00', '2026-07-15 00:00:00'),
+(9, 'KG009', 'Kampus Mengajar: Edukasi Digital Sekolah Dasar', 'Lainnya', '2026-08-20', '08:00:00', '14:00:00', 'Desa Binaan', 25, 'Pengabdian masyarakat mengajarkan IT dasar.', 'dibuka', 1, '2026-07-15 00:00:00', '2026-07-15 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -175,7 +181,7 @@ ALTER TABLE `user_login`
 -- AUTO_INCREMENT for table `kegiatan`
 --
 ALTER TABLE `kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `peserta`
