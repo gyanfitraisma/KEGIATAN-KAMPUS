@@ -26,7 +26,6 @@ $data = mysqli_fetch_assoc($result);
 $data_kegiatan = mysqli_query($koneksi, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
 
 // 3. PROSES UPDATE DATA
-$pesan = "";
 if (isset($_POST['update'])) {
     $nim                = mysqli_real_escape_string($koneksi, $_POST['nim']);
     $nama_lengkap       = mysqli_real_escape_string($koneksi, $_POST['nama_lengkap']);
@@ -56,7 +55,8 @@ if (isset($_POST['update'])) {
         header("Location: edit_data.php?id=$id_peserta&status=sukses");
         exit();
     } else {
-        $pesan = "<div class='alert alert-danger'>Gagal memperbarui data: " . mysqli_error($koneksi) . "</div>";
+        header("Location: edit_data.php?id=$id_peserta&status=gagal");
+        exit();
     }
 }
 ?>
@@ -87,7 +87,6 @@ if (isset($_POST['update'])) {
             <a href="form_daftar.php"><i class="bi bi-pencil-square"></i> Form Pendaftaran</a>
             <a href="data_peserta.php"><i class="bi bi-people"></i> Data Peserta</a>
             <a href="kegiatan.php"><i class="bi bi-calendar-event"></i> Data Kegiatan</a>
-            <!-- Perbaikan Link Logout di bawah ini -->
             <a href="logout.php"><i class="bi bi-box-arrow-right"></i> Logout</a>
         </nav>
     </aside>
@@ -118,20 +117,31 @@ if (isset($_POST['update'])) {
             </div>
         </section>
 
+        <!-- NOTIFIKASI ALERT BOOTSTRAP -->
+        <?php if (isset($_GET['status']) && $_GET['status'] == 'sukses'): ?>
+            <div class="alert alert-success alert-dismissible fade show mb-4 d-flex align-items-center" role="alert" style="border-radius: 10px;">
+                <i class="bi bi-check-circle-fill me-3 fs-4"></i>
+                <div>
+                    <strong>Update Berhasil!</strong> Perubahan data peserta telah sukses diperbarui ke dalam database.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php elseif (isset($_GET['status']) && $_GET['status'] == 'gagal'): ?>
+            <div class="alert alert-danger alert-dismissible fade show mb-4 d-flex align-items-center" role="alert" style="border-radius: 10px;">
+                <i class="bi bi-exclamation-triangle-fill me-3 fs-4"></i>
+                <div>
+                    <strong>Update Gagal!</strong> Terjadi kesalahan teknis saat memperbarui data. Silakan coba lagi.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
+
         <!-- FORM BOX -->
         <section class="card-box mb-4">
             <div class="section-title">
                 <h3><i class="bi bi-pencil-square text-primary"></i> Edit Informasi Peserta</h3>
                 <span>Perbarui data</span>
             </div>
-
-            <!-- Notifikasi Transaksi -->
-            <?php 
-            echo $pesan; 
-            if (isset($_GET['status']) && $_GET['status'] == 'sukses') {
-                echo "<div class='alert alert-success'>🎉 Data Berhasil Diperbarui!</div>";
-            }
-            ?>
 
             <form id="formEdit" class="row g-4" method="POST" action="">
                 
@@ -246,5 +256,7 @@ if (isset($_POST['update'])) {
         selects.forEach(select => select.selectedIndex = 0);
     }
     </script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
