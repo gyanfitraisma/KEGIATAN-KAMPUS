@@ -12,6 +12,22 @@ if (!isset($_SESSION['login'])) {
 $nama = $_SESSION['nama_lengkap'];
 
 // ==================================================
+// LOGIKA UCAPAN WAKTU DINAMIS (TAMBAHKAN DI SINI)
+// ==================================================
+date_default_timezone_set('Asia/Jakarta'); // Memastikan jam server sesuai WIB
+$jam = date('H');
+
+if ($jam >= 5 && $jam < 11) {
+    $ucapan = "Selamat Pagi 🌅";
+} elseif ($jam >= 11 && $jam < 15) {
+    $ucapan = "Selamat Siang ☀️";
+} elseif ($jam >= 15 && $jam < 18) {
+    $ucapan = "Selamat Sore 🌇";
+} else {
+    $ucapan = "Selamat Malam 🌙";
+}
+
+// ==================================================
 // LOGIKA STATISTIK DINAMIS DARI DATABASE
 // ==================================================
 // 1. Hitung Total Peserta Terdaftar
@@ -123,7 +139,7 @@ if($persentase > 100) $persentase = 100;
 
                 <div class="col-lg-8">
                     <h2 id="sapaan">
-                     Selamat Datang, <?php echo htmlspecialchars($nama); ?> 👋
+                     <?= $ucapan; ?>, <?php echo htmlspecialchars($nama); ?>
                     </h2>
                     <p>
                         Kelola seluruh kegiatan kampus dengan lebih mudah.
