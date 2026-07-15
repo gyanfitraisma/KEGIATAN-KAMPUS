@@ -270,6 +270,14 @@ $data_kegiatan = mysqli_query(
                 </table>
             </div>
         </section>
+
+        <!-- Footer -->
+        <footer class="footer mt-4">
+            <p>
+                &copy; <?= date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus <br>
+                <small class="text-muted">Dibuat untuk memenuhi tugas Pemrograman Web.</small>
+            </p>
+        </footer>
     </main>
 
     <!-- Memuat bundle JavaScript resmi milik Bootstrap 5 untuk mendukung interaktivitas komponen -->
