@@ -145,9 +145,9 @@ $kegiatan_aktif = $total_kegiatan - $selesai;
                 <span class="text-muted">Semester Genap 2026</span>
             </div>
 
-            <!-- Form Pencarian -->
-            <form method="GET" action="" class="row g-2 mb-4">
-                <div class="col-md-10">
+            <!-- Form Pencarian (PERBAIKAN ATRIBUT ACTION & TOMBOL RESET) -->
+            <form method="GET" action="kegiatan.php" class="row g-2 mb-4">
+                <div class="col-md-8">
                     <div class="input-group">
                         <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
                         <input type="text" name="keyword" class="form-control" placeholder="Cari nama kegiatan..." value="<?= htmlspecialchars($search); ?>">
@@ -155,6 +155,13 @@ $kegiatan_aktif = $total_kegiatan - $selesai;
                 </div>
                 <div class="col-md-2">
                     <button type="submit" name="cari" class="btn btn-primary w-100">Cari</button>
+                </div>
+                <div class="col-md-2">
+                    <?php if (isset($_GET['cari']) && $_GET['keyword'] != ""): ?>
+                        <a href="kegiatan.php" class="btn btn-secondary w-100">Reset</a>
+                    <?php else: ?>
+                        <button type="button" class="btn btn-secondary w-100" disabled>Reset</button>
+                    <?php endif; ?>
                 </div>
             </form>
 
@@ -173,32 +180,38 @@ $kegiatan_aktif = $total_kegiatan - $selesai;
                     </thead>
                     <tbody>
                         <?php 
-                        while($row = mysqli_fetch_assoc($query_kegiatan)) { 
-                            $kode = "KG" . str_pad($row['id_kegiatan'], 3, "0", STR_PAD_LEFT);
-                        ?>
-                        <tr>
-                            <td><strong><?= $kode; ?></strong></td>
-                            <td><?= htmlspecialchars($row['nama_kegiatan']); ?></td>
-                            <td><?= date('d M Y', strtotime($row['tanggal'])); ?></td>
-                            <td><?= htmlspecialchars($row['lokasi']); ?></td>
-                            <td><?= isset($row['kuota']) ? $row['kuota'] : '100'; ?></td>
-                            <td>
-                                <!-- LOGIKA PHP STATUS DINAMIS BERDASARKAN TANGGAL HARI INI -->
-                                <?php 
-                                $tgl_kegiatan = date('Y-m-d', strtotime($row['tanggal']));
-                                $tgl_sekarang = date('Y-m-d');
+                        if (mysqli_num_rows($query_kegiatan) > 0) {
+                            while($row = mysqli_fetch_assoc($query_kegiatan)) { 
+                                $kode = "KG" . str_pad($row['id_kegiatan'], 3, "0", STR_PAD_LEFT);
+                            ?>
+                            <tr>
+                                <td><strong><?= $kode; ?></strong></td>
+                                <td><?= htmlspecialchars($row['nama_kegiatan']); ?></td>
+                                <td><?= date('d M Y', strtotime($row['tanggal'])); ?></td>
+                                <td><?= htmlspecialchars($row['lokasi']); ?></td>
+                                <td><?= isset($row['kuota']) ? $row['kuota'] : '100'; ?></td>
+                                <td>
+                                    <!-- LOGIKA PHP STATUS DINAMIS BERDASARKAN TANGGAL HARI INI -->
+                                    <?php 
+                                    $tgl_kegiatan = date('Y-m-d', strtotime($row['tanggal']));
+                                    $tgl_sekarang = date('Y-m-d');
 
-                                if ($tgl_kegiatan < $tgl_sekarang) {
-                                    echo '<span class="badge bg-danger" style="border-radius: 50px; padding: 5px 15px;">Selesai</span>';
-                                } elseif ($tgl_kegiatan == $tgl_sekarang) {
-                                    echo '<span class="badge bg-primary" style="border-radius: 50px; padding: 5px 15px;">Berlangsung</span>';
-                                } else {
-                                    echo '<span class="badge bg-success" style="border-radius: 50px; padding: 5px 15px;">Dibuka</span>';
-                                }
-                                ?>
-                            </td>
-                        </tr>
-                        <?php } ?>
+                                    if ($tgl_kegiatan < $tgl_sekarang) {
+                                        echo '<span class="badge bg-danger" style="border-radius: 50px; padding: 5px 15px;">Selesai</span>';
+                                    } elseif ($tgl_kegiatan == $tgl_sekarang) {
+                                        echo '<span class="badge bg-primary" style="border-radius: 50px; padding: 5px 15px;">Berlangsung</span>';
+                                    } else {
+                                        echo '<span class="badge bg-success" style="border-radius: 50px; padding: 5px 15px;">Dibuka</span>';
+                                    }
+                                    ?>
+                                </td>
+                            </tr>
+                            <?php 
+                            } 
+                        } else {
+                            echo '<tr><td colspan="6" class="text-center text-muted py-4">Data kegiatan yang kamu cari tidak ditemukan.</td></tr>';
+                        }
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -212,7 +225,7 @@ $kegiatan_aktif = $total_kegiatan - $selesai;
     function updateJam() {
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID", {
+        document.getElementById("tanggal").innerHTML = broadband = sekarang.toLocaleDateString("id-ID", {
             weekday: "long", day: "numeric", month: "long", year: "numeric"
         });
     }
