@@ -184,21 +184,17 @@ $data_kegiatan = mysqli_query(
 
                 <!-- Kolom pilihan (Dropdown) untuk memfilter data berdasarkan nama kegiatan -->
                 <div class="col-md-5">
-                    <select name="filter_kegiatan" class="form-select">
-                        <option value="">Semua kegiatan</option>
-                        <?php 
-                        // Melakukan perulangan untuk menampilkan semua daftar kegiatan dari database ke opsi pilihan
-                        while($kegiatan = mysqli_fetch_assoc($data_kegiatan)){ 
-                        ?>
-                            <option 
-                                value="<?= $kegiatan['id_kegiatan']; ?>"
-                                <!-- Menandai 'selected' otomatis jika kegiatan ini sedang dipilih sebagai filter -->
-                                <?= ($filter_kegiatan == $kegiatan['id_kegiatan']) ? 'selected' : ''; ?>
-                            >
-                                <?= htmlspecialchars($kegiatan['nama_kegiatan']); ?>
-                            </option>
-                        <?php } ?>
-                    </select>
+<select name="filter_kegiatan" class="form-select">
+    <option value="">Semua kegiatan</option>
+    <?php 
+    // Melakukan perulangan untuk menampilkan semua daftar kegiatan dari database ke opsi pilihan
+    while($kegiatan = mysqli_fetch_assoc($data_kegiatan)){ 
+    ?>
+        <option value="<?= $kegiatan['id_kegiatan']; ?>" <?= ($filter_kegiatan == $kegiatan['id_kegiatan']) ? 'selected' : ''; ?>>
+             <?= htmlspecialchars($kegiatan['nama_kegiatan']); ?>
+        </option>
+    <?php } ?>
+</select>
                 </div>
 
                 <!-- Tombol Submit untuk memproses penyaringan data -->
