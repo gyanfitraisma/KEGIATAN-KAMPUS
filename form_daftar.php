@@ -177,20 +177,40 @@ if (isset($_POST['simpan'])) {
                 </div>
 
                 <!-- Pilihan Kegiatan -->
-                <div class="col-md-6">
-                    <label class="form-label"><i class="bi bi-calendar-event-fill text-primary"></i> Pilih Kegiatan</label>
-                    <select class="form-select" name="id_kegiatan" required>
-                        <option value="">Pilih Kegiatan</option>
-                        <?php
-                        $kegiatan = mysqli_query($conn, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
-                        while($row = mysqli_fetch_assoc($kegiatan)){
-                        ?>
-                        <option value="<?= $row['id_kegiatan']; ?>">
-                            <?= htmlspecialchars($row['nama_kegiatan']); ?>
-                        </option>
-                        <?php } ?>
-                    </select>
-                </div>
+<div class="col-md-6">
+    <label class="form-label"><i class="bi bi-calendar-event-fill text-primary"></i> Pilih Kegiatan</label>
+    <select class="form-select" name="id_kegiatan" required>
+        <option value="">Pilih Kegiatan</option>
+        <?php
+        // Mengambil semua data kegiatan dari database diurutkan secara alfabetis
+        $kegiatan = mysqli_query($conn, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
+        while($row = mysqli_fetch_assoc($kegiatan)){
+            // Ambil tanggal kegiatan dari database dan tanggal hari ini
+            $tgl_kegiatan = date('Y-m-d', strtotime($row['tanggal']));
+            $tgl_sekarang = date('Y-m-d');
+
+            // JIKA TANGGAL KEGIATAN SUDAH LEWAT (SUDAH SELESAI)
+            if ($tgl_kegiatan < $tgl_sekarang) {
+                // Ditampilkan di dropdown tapi tidak bisa dipilih (disabled) dan diberi warna abu-abu
+                ?>
+                <option value="<?= $row['id_kegiatan']; ?>" disabled style="color: #a0a0a0; background-color: #f2f2f2;">
+                    <?= htmlspecialchars($row['nama_kegiatan']); ?> (Pendaftaran Ditutup - Kegiatan Selesai)
+                </option>
+                <?php
+            } 
+            // JIKA KEGIATAN MASIH AKAN DATANG ATAU HARI INI
+            else {
+                // Ditampilkan secara normal agar pendaftar bisa memilihnya
+                ?>
+                <option value="<?= $row['id_kegiatan']; ?>">
+                    <?= htmlspecialchars($row['nama_kegiatan']); ?>
+                </option>
+                <?php 
+            }
+        } 
+        ?>
+    </select>
+</div>
 
                 <!-- Alamat -->
                 <div class="col-12">
@@ -225,7 +245,7 @@ if (isset($_POST['simpan'])) {
     function updateJam() {
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = broadband = sekarang.toLocaleDateString("id-ID", {
+        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID", {
             weekday: "long",
             day: "numeric",
             month: "long",
