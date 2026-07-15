@@ -125,24 +125,39 @@ $data_kegiatan = mysqli_query(
         </section>
 
         <!-- Banner Hero Gradient -->
-        <!-- Menggunakan background linear-gradient teal-hijau, sudut tumpul (border-radius), dan padding agar teks memiliki ruang longgar -->
         <section class="hero-dashboard mb-4" style="background: linear-gradient(135deg, #1d72b8 0%, #34a853 100%); color: white; padding: 30px; border-radius: 15px;">
             <div class="row align-items-center">
-                <!-- Membagi tata letak kolom deskripsi halaman menjadi ukuran lebar 8 grid pada desktop -->
                 <div class="col-lg-8">
                     <h2><i class="bi bi-people"></i> Data Peserta Kegiatan</h2>
                     <p class="mb-0">Pusat informasi dan manajemen data pendaftaran mahasiswa untuk seluruh agenda kegiatan kampus yang sedang berjalan.</p>
                 </div>
-                <!-- Wadah komponen jam dan tanggal digital di sisi kanan dengan porsi 4 grid desktop -->
                 <div class="col-lg-4 text-lg-end">
                     <div class="hero-time">
-                        <!-- ID 'jam' dan 'tanggal' akan diisi otomatis teksnya oleh script JavaScript di bawah -->
                         <h3 id="jam">00:00:00</h3>
                         <span id="tanggal">Senin, 1 Januari 2026</span>
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- TAMPILAN NOTIFIKASI ALERT BOOTSTRAP (DARI URL) -->
+        <?php if (isset($_GET['status']) && $_GET['status'] == 'hapus_sukses'): ?>
+            <div class="alert alert-danger alert-dismissible fade show mb-4 d-flex align-items-center shadow-sm" role="alert" style="border-radius: 10px; border-left: 5px solid #dc3545;">
+                <i class="bi bi-trash-fill text-danger me-3 fs-4"></i>
+                <div>
+                    <strong>Data Berhasil Dihapus!</strong> Akun peserta tersebut telah dikeluarkan dari sistem pendaftaran.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php elseif (isset($_GET['status']) && $_GET['status'] == 'hapus_gagal'): ?>
+            <div class="alert alert-warning alert-dismissible fade show mb-4 d-flex align-items-center shadow-sm" role="alert" style="border-radius: 10px; border-left: 5px solid #ffc107;">
+                <i class="bi bi-exclamation-triangle-fill text-warning me-3 fs-4"></i>
+                <div>
+                    <strong>Proses Gagal!</strong> Data peserta tidak ditemukan atau telah dihapus sebelumnya.
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        <?php endif; ?>
 
         <!-- Kotak kartu pembungkus utama form pencarian/filter dan tabel daftar data -->
         <section class="card-box mb-4">
@@ -246,7 +261,7 @@ $data_kegiatan = mysqli_query(
                                 <a href="edit_data.php?id=<?= $peserta['id_peserta']; ?>" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Edit
                                 </a>
-                                <!-- Tombol hapus data yang dilengkapi validasi pop-up konfirmasi javascript -->
+                                <!-- Tombol hapus data secara dinamis berdasarkan ID peserta yang bersangkutan -->
                                 <a href="hapus_peserta.php?id=<?= $peserta['id_peserta']; ?>" 
                                    onclick="return confirm('Yakin ingin menghapus data milik <?= htmlspecialchars($peserta['nama_lengkap']); ?>?')" 
                                    class="btn btn-sm btn-danger">
