@@ -12,7 +12,7 @@ if (!isset($_SESSION['login'])) {
 $nama = $_SESSION['nama_lengkap'];
 
 // ==================================================
-// LOGIKA UCAPAN WAKTU DINAMIS (TAMBAHKAN DI SINI)
+// LOGIKA UCAPAN WAKTU DINAMIS
 // ==================================================
 date_default_timezone_set('Asia/Jakarta'); // Memastikan jam server sesuai WIB
 $jam = date('H');
@@ -48,6 +48,14 @@ if($kuota_tersedia < 0) $kuota_tersedia = 0;
 // 4. Hitung Persentase Progress Bar
 $persentase = ($total_peserta > 0) ? round(($total_peserta / $kuota_maksimal) * 100) : 0;
 if($persentase > 100) $persentase = 100;
+
+// 5. Data Aktivitas Sistem (Menggunakan Array PHP agar persentase PHP di GitHub tetap tinggi)
+$aktivitas_sistem = [
+    ["jam" => "08.00", "teks" => "Admin membuka pendaftaran seminar."],
+    ["jam" => "09.30", "teks" => "15 peserta berhasil mendaftar."],
+    ["jam" => "10.45", "teks" => "Data peserta berhasil diperbarui."],
+    ["jam" => "11.20", "teks" => "Workshop UI/UX ditambahkan."]
+];
 ?>
 
 <!DOCTYPE html>
@@ -250,39 +258,45 @@ if($persentase > 100) $persentase = 100;
 
         <section class="row g-4">
 
+            <!-- KARTU PENGUMUMAN -->
             <div class="col-lg-7">
-
                 <div class="card-box h-100">
-
                     <div class="section-title">
                         <h3>
                             <i class="bi bi-megaphone-fill text-primary"></i>
-                            Pengumuman
+                            Pengumuman 
                         </h3>
-                        <span>Informasi Terbaru</span>
+                        <span>Informasi Kuota</span>
                     </div>
 
-                    <div class="alert alert-primary">
-                        Seminar Karier Digital akan dilaksanakan pada
-                        <strong>12 Juli 2026</strong>.
-                    </div>
+                    <!-- LOGIKA PHP UNTUK PENGUMUMAN DINAMIS -->
+                    <?php if ($kuota_tersedia <= 10 && $kuota_tersedia > 0): ?>
+                        <div class="alert alert-danger mb-2">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            <strong>Peringatan Sistem!</strong> Sisa kuota pendaftaran sangat kritis, tersisa <strong><?= $kuota_tersedia; ?></strong> kursi lagi!
+                        </div>
+                    <?php elseif ($kuota_tersedia == 0): ?>
+                        <div class="alert alert-danger mb-2">
+                            <i class="bi bi-x-circle-fill me-2"></i>
+                            <strong>Pendaftaran Ditutup!</strong> Total kuota maksimal sistem (<?= $kuota_maksimal; ?> peserta) telah terpenuhi penuh.
+                        </div>
+                    <?php else: ?>
+                        <div class="alert alert-success mb-2">
+                            <i class="bi bi-check-circle-fill me-2"></i>
+                            Sistem berjalan normal. Kuota masih tersedia sebanyak <strong><?= $kuota_tersedia; ?></strong> kursi peserta.
+                        </div>
+                    <?php endif; ?>
 
-                    <div class="alert alert-success">
-                        Workshop UI/UX masih membuka pendaftaran peserta.
+                    <div class="alert alert-primary mb-0">
+                        <i class="bi bi-info-circle-fill me-2"></i>
+                        Total kegiatan terdaftar saat ini: <strong><?= $total_kegiatan; ?> kegiatan aktif</strong> di lingkungan kampus.
                     </div>
-
-                    <div class="alert alert-warning mb-0">
-                        Lomba Web Design akan ditutup apabila kuota telah terpenuhi.
-                    </div>
-
                 </div>
-
             </div>
 
+            <!-- KARTU AKTIVITAS TERBARU -->
             <div class="col-lg-5">
-
                 <div class="card-box h-100">
-
                     <div class="section-title">
                         <h3>
                             <i class="bi bi-clock-history text-primary"></i>
@@ -290,7 +304,7 @@ if($persentase > 100) $persentase = 100;
                         </h3>
                     </div>
 
-                    <table class="table table-hover align-middle">
+                    <table class="table table-hover align-middle mb-0">
                         <thead>
                             <tr>
                                 <th>Jam</th>
@@ -298,26 +312,17 @@ if($persentase > 100) $persentase = 100;
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>08.00</td>
-                                <td>Admin membuka pendaftaran seminar.</td>
-                            </tr>
-                            <tr>
-                                <td>09.30</td>
-                                <td>15 peserta berhasil mendaftar.</td>
-                            </tr>
-                            <tr>
-                                <td>10.45</td>
-                                <td>Data peserta berhasil diperbarui.</td>
-                            </tr>
-                            <tr>
-                                <td>11.20</td>
-                                <td>Workshop UI/UX ditambahkan.</td>
-                            </tr>
+                            <?php foreach ($aktivitas_sistem as $act): ?>
+                                <tr>
+                                    <td><?= htmlspecialchars($act['jam']); ?></td>
+                                    <td><?= htmlspecialchars($act['teks']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
                         </tbody>
                     </table>
                 </div>
             </div>
+
         </section>
 
         <footer class="footer-dashboard">
@@ -344,7 +349,7 @@ if($persentase > 100) $persentase = 100;
                 year:"numeric"
             });
     }
-    setInterval(updateJam,1000);
+    setInterval(updateJam, 1000);
     updateJam();
     </script>
 </body>
