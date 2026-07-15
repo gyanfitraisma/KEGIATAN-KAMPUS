@@ -199,24 +199,6 @@ if (isset($_POST['simpan'])) {
                     <textarea class="form-control" name="alamat" rows="4" placeholder="Masukkan alamat lengkap..." required></textarea>
                 </div>
 
-                <!-- Upload Foto -->
-                <div class="col-md-6">
-                    <label class="form-label"><i class="bi bi-image-fill text-primary"></i> Upload Foto</label>
-                    <input type="file" class="form-control" accept="image/*" disabled>
-                    <small class="text-muted">(Belum digunakan karena tabel database belum memiliki kolom foto.)</small>
-                </div>
-
-                <!-- Jenis Kelamin -->
-                <div class="col-md-6">
-                    <label class="form-label"><i class="bi bi-gender-ambiguous text-primary"></i> Jenis Kelamin</label>
-                    <select class="form-select" disabled>
-                        <option>Pilih Jenis Kelamin</option>
-                        <option>Laki-laki</option>
-                        <option>Perempuan</option>
-                    </select>
-                    <small class="text-muted">(Belum digunakan karena tabel database belum memiliki kolom jenis kelamin.)</small>
-                </div>
-
                 <!-- Tombol -->
                 <div class="col-12 mt-3">
                     <button type="submit" name="simpan" class="btn btn-primary me-2">
@@ -244,7 +226,7 @@ if (isset($_POST['simpan'])) {
     function updateJam() {
         const sekarang = new Date();
         document.getElementById("jam").innerHTML = sekarang.toLocaleTimeString("id-ID");
-        document.getElementById("tanggal").innerHTML = sekarang.toLocaleDateString("id-ID", {
+        document.getElementById("tanggal").innerHTML = broadband = sekarang.toLocaleDateString("id-ID", {
             weekday: "long",
             day: "numeric",
             month: "long",
