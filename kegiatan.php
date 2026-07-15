@@ -217,6 +217,14 @@ $kegiatan_aktif = $total_kegiatan - $selesai;
             </div>
         </section>
 
+        <!-- Footer -->
+        <footer class="footer mt-4">
+            <p>
+                &copy; <?= date("Y"); ?> Sistem Pendaftaran Kegiatan Kampus <br>
+                <small class="text-muted">Dibuat untuk memenuhi tugas Pemrograman Web.</small>
+            </p>
+        </footer>
+
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
