@@ -49,7 +49,7 @@ if($kuota_tersedia < 0) $kuota_tersedia = 0;
 $persentase = ($total_peserta > 0) ? round(($total_peserta / $kuota_maksimal) * 100) : 0;
 if($persentase > 100) $persentase = 100;
 
-// 5. Data Aktivitas Sistem (Menggunakan Array PHP agar persentase PHP di GitHub tetap tinggi)
+// 5. Data Aktivitas Sistem
 $aktivitas_sistem = [
     ["jam" => "08.00", "teks" => "Admin membuka pendaftaran seminar."],
     ["jam" => "09.30", "teks" => "15 peserta berhasil mendaftar."],
@@ -258,18 +258,18 @@ $aktivitas_sistem = [
 
         <section class="row g-4">
 
-            <!-- KARTU PENGUMUMAN -->
+            <!-- KARTU INFORMASI -->
             <div class="col-lg-7">
                 <div class="card-box h-100">
                     <div class="section-title">
                         <h3>
                             <i class="bi bi-megaphone-fill text-primary"></i>
-                            Pengumuman 
+                            Informasi Terbaru
                         </h3>
                         <span>Informasi Kuota</span>
                     </div>
 
-                    <!-- LOGIKA PHP UNTUK PENGUMUMAN DINAMIS -->
+                    <!-- LOGIKA PHP UNTUK INFORMASI DINAMIS -->
                     <?php if ($kuota_tersedia <= 10 && $kuota_tersedia > 0): ?>
                         <div class="alert alert-danger mb-2">
                             <i class="bi bi-exclamation-triangle-fill me-2"></i>
