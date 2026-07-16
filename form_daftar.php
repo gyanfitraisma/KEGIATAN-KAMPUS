@@ -180,6 +180,7 @@ if (isset($_POST['simpan'])) {
 <div class="col-md-6">
     <label class="form-label"><i class="bi bi-calendar-event-fill text-primary"></i> Pilih Kegiatan</label>
     <select class="form-select" name="id_kegiatan" required>
+        <option value="" selected disabled>Pilih Kegiatan</option>
         <?php
         // Mengambil semua data kegiatan dari database diurutkan secara alfabetis
         $kegiatan = mysqli_query($conn, "SELECT * FROM kegiatan ORDER BY nama_kegiatan ASC");
